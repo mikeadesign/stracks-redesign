@@ -3,7 +3,6 @@ import styles from './Footer.module.scss';
 export default function Footer() {
   return (
     <>
-      <div className="pole-divider" aria-hidden="true" />
       <footer className={styles.footer}>
         <div className={styles.inner}>
           <p className={styles.wordmark}>Strack&rsquo;s</p>

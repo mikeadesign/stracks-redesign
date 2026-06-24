@@ -113,7 +113,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <div className="pole-divider" aria-hidden="true" />
         <About />
         <Gallery />
         <Services />
