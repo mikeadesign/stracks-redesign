@@ -1,0 +1,147 @@
+@use '../../_tokens' as g;
+
+.hours {
+  background: g.$cream;
+  padding-block: g.$space-xl;
+}
+
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: g.$space-md;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: g.$space-lg;
+
+  @media (max-width: g.$bp-md) {
+    grid-template-columns: 1fr;
+    gap: g.$space-md;
+  }
+}
+
+.block {
+  h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: g.$ink;
+    margin-bottom: g.$space-md;
+    line-height: 1.1;
+  }
+}
+
+.schedule {
+  border-top: 2px solid g.$ink;
+}
+
+.day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(g.$ink, 0.1);
+  font-size: 0.95rem;
+
+  &.closed {
+    .dayHours {
+      color: rgba(g.$smoke, 0.5);
+      font-style: italic;
+    }
+  }
+
+  &.today {
+    .dayName {
+      color: g.$red;
+      font-weight: 700;
+    }
+    .dayHours {
+      color: g.$red;
+      font-weight: 700;
+    }
+  }
+
+}
+
+.dayName {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: g.$ink;
+  letter-spacing: 0.04em;
+}
+
+.dayHours {
+  font-family: var(--font-body);
+  color: g.$smoke;
+}
+
+.note {
+  margin-top: g.$space-sm;
+  font-size: 0.8rem;
+  color: g.$smoke;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+// Contact block
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: g.$space-sm;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contactIcon {
+  width: 40px;
+  height: 40px;
+  background: g.$brown-deep;
+  color: g.$cream;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.contactText {
+  strong {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: g.$smoke;
+    margin-bottom: 0.2rem;
+  }
+
+  a, span {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: g.$ink;
+    line-height: 1.3;
+
+    &:hover {
+      color: g.$red;
+    }
+  }
+}
+
+.mapWrap {
+  margin-top: g.$space-md;
+  border: 1px solid rgba(g.$ink, 0.1);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}

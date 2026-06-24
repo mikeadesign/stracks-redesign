@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-24T00:00:00Z",
+  "title": "Design System: Strack's Barbershop",
+  "extensions": {
+    "colorMeta": {
+      "espresso": {
+        "role": "primary",
+        "displayName": "Espresso",
+        "canonical": "#1C0F07",
+        "tonalRamp": ["#080402", "#1C0F07", "#32180A", "#4A2510", "#68381C", "#8A5230", "#B07858", "#D4A888"]
+      },
+      "parchment": {
+        "role": "neutral",
+        "displayName": "Parchment",
+        "canonical": "#F0E8D5",
+        "tonalRamp": ["#3A2A10", "#5A4420", "#7A5E30", "#9A7A4A", "#B89868", "#CCAE88", "#E0C8A8", "#F0E8D5"]
+      },
+      "barber-red": {
+        "role": "primary",
+        "displayName": "Barber Red",
+        "canonical": "#BE1E2D",
+        "tonalRamp": ["#200008", "#480010", "#780018", "#A80020", "#BE1E2D", "#D04040", "#E07070", "#F0A8A8"]
+      },
+      "antique-gold": {
+        "role": "secondary",
+        "displayName": "Antique Gold",
+        "canonical": "#C49A2A",
+        "tonalRamp": ["#281800", "#4A2E00", "#6C4808", "#906018", "#B08028", "#C49A2A", "#D4B048", "#E8D080"]
+      },
+      "worn-leather": {
+        "role": "neutral",
+        "displayName": "Worn Leather",
+        "canonical": "#6B5E52",
+        "tonalRamp": ["#181008", "#2C2018", "#443428", "#6B5E52", "#887A6E", "#A89A8E", "#C4B8B0", "#E0D8D4"]
+      },
+      "press-black": {
+        "role": "neutral",
+        "displayName": "Press Black",
+        "canonical": "#1A1A1A",
+        "tonalRamp": ["#080808", "#1A1A1A", "#303030", "#484848", "#686868", "#888888", "#ABABAB", "#D0D0D0"]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#C0C0C0", "#D0D0D0", "#E0E0E0", "#EBEBEB", "#F2F2F2", "#F6F6F6", "#FAFAFA", "#FFFFFF"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline, service prices, wordmark logo. Never smaller than 1.25rem."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section h2 headings on both light and dark fields."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Editorial taglines and supporting italic prose. Hero tagline, supporting subheads."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraph text on light sections. Press Black on Parchment. Max 50ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrows, nav links, CTA text, schedule day names, contact category headers. Use sparingly."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.25, 0.1, 0.25, 1.0)",
+        "purpose": "Default easing for all state transitions (hover backgrounds, nav underlines, gallery filter)."
+      },
+      {
+        "name": "dur-fast",
+        "value": "0.2s",
+        "purpose": "Hover background color changes — instant enough to feel responsive."
+      },
+      {
+        "name": "dur-medium",
+        "value": "0.4s–0.6s",
+        "purpose": "Reveal animation, gallery filter, hero element entrances."
+      },
+      {
+        "name": "dur-slow",
+        "value": "1.1s",
+        "purpose": "Pole shimmer — one-time atmosphere effect, fires once on page load."
+      },
+      {
+        "name": "reveal-entrance",
+        "value": "opacity 0.6s ease, transform 0.6s ease",
+        "purpose": "Scroll-triggered reveal: opacity 0→1, translateY 16px→0. Staggered per instance via inline delay."
+      },
+      {
+        "name": "nav-underline",
+        "value": "transform 0.25s ease",
+        "purpose": "Active nav link underline: scaleX 0→1 from left origin."
+      },
+      {
+        "name": "gallery-hover",
+        "value": "transform 0.5s ease, filter 0.4s ease",
+        "purpose": "Gallery photo: scale 1→1.06, grayscale 20%→0%, espresso overlay fade."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "600px", "purpose": "Mobile nav collapses to phone CTA only." },
+      { "name": "md", "value": "768px", "purpose": "About and Hours switch from 2-column to 1-column." },
+      { "name": "lg", "value": "1024px", "purpose": "Gallery collapses from 6-column to 3-column." },
+      { "name": "max-content", "value": "1100px", "purpose": "Max content width across all sections." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA Button (Gold)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Gold fill, espresso text. Used in Hero only. Uppercase, near-square radius. The invitation to call.",
+      "html": "<a href=\"tel:8476586948\" class=\"ds-btn-primary\">Call to Book &mdash; 847-658-6948</a>",
+      "css": ".ds-btn-primary { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.06em; color: #1C0F07; background: #C49A2A; padding: 0.9rem 2rem; border-radius: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; cursor: pointer; border: none; transition: background 0.2s, transform 0.15s; } .ds-btn-primary:hover { background: #D4B040; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #C49A2A; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary CTA Button (Red)",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Barber Red fill, white text. Used in fixed Header nav only — the phone number CTA. Never combined with the gold button in the same cluster.",
+      "html": "<a href=\"tel:8476586948\" class=\"ds-btn-secondary\">847-658-6948</a>",
+      "css": ".ds-btn-secondary { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; color: #FFFFFF; background: #BE1E2D; padding: 0.4rem 1rem; border-radius: 2px; text-decoration: none; display: inline-block; cursor: pointer; border: none; transition: background 0.2s; } .ds-btn-secondary:hover { background: #A01828; } .ds-btn-secondary:focus-visible { outline: 2px solid #C49A2A; outline-offset: 3px; }"
+    },
+    {
+      "name": "Nav Wordmark",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Abril Fatface wordmark in parchment; the apostrophe accent in Barber Red is the only decorative use of red in the system.",
+      "html": "<a href=\"/\" class=\"ds-wordmark\">Strack<span class=\"ds-wordmark-apos\">'</span>s Barbershop</a>",
+      "css": ".ds-wordmark { font-family: 'Abril Fatface', Georgia, serif; font-size: 1.25rem; color: #F0E8D5; letter-spacing: 0.02em; text-decoration: none; } .ds-wordmark-apos { color: #BE1E2D; }"
+    },
+    {
+      "name": "Nav Link (with active state)",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Label-scale uppercase links. Active section highlighted gold with an underline revealed via scaleX transform.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#services\" class=\"ds-nav-link\">Services</a><a href=\"#hours\" class=\"ds-nav-link ds-nav-link--active\">Hours &amp; Info</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 2rem; } .ds-nav-link { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,232,213,0.75); text-decoration: none; position: relative; transition: color 0.2s; } .ds-nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: #C49A2A; transform: scaleX(0); transform-origin: left center; transition: transform 0.25s ease; } .ds-nav-link:hover { color: #C49A2A; } .ds-nav-link--active { color: #C49A2A; } .ds-nav-link--active::after { transform: scaleX(1); }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Small-caps section locator in antique gold. Use at most once per section. Not on every heading.",
+      "html": "<p class=\"ds-eyebrow\">Est. on South Main Street</p>",
+      "css": ".ds-eyebrow { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #C49A2A; margin-bottom: 0.5rem; }"
+    },
+    {
+      "name": "Service Menu Item",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Single row from the services menu grid. Baskerville name left, Abril Fatface price right in gold. Part of a gap-based hairline grid on an espresso background.",
+      "html": "<div class=\"ds-service-item\"><span class=\"ds-service-name\">Men's Haircut <span class=\"ds-service-note\">Classic cut, all lengths</span></span><span class=\"ds-service-price\">$35</span></div>",
+      "css": ".ds-service-item { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1.4rem 1.75rem; background: #1C0F07; transition: background 0.2s; } .ds-service-item:hover { background: rgba(196,154,42,0.06); } .ds-service-name { font-family: 'Libre Baskerville', Georgia, serif; font-size: 1rem; color: #F0E8D5; line-height: 1.3; } .ds-service-note { display: block; font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-size: 0.75rem; font-style: normal; color: rgba(240,232,213,0.45); margin-top: 0.2rem; } .ds-service-price { font-family: 'Abril Fatface', Georgia, serif; font-size: 1.5rem; color: #C49A2A; white-space: nowrap; flex-shrink: 0; }"
+    },
+    {
+      "name": "Pole Divider (Signature)",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "14px diagonal barber-pole stripe. Fires a one-time shimmer on page load. Used twice: between Hero and About, and above Footer. Never inside sections.",
+      "html": "<div class=\"ds-pole-divider\" aria-hidden=\"true\"></div>",
+      "css": "@keyframes ds-pole-shimmer { from { left: -60%; } to { left: 160%; } } .ds-pole-divider { position: relative; overflow: hidden; height: 14px; background: repeating-linear-gradient(-45deg, #BE1E2D 0px, #BE1E2D 8px, #FFFFFF 8px, #FFFFFF 16px); background-size: 22.6px 22.6px; } .ds-pole-divider::after { content: ''; position: absolute; top: 0; left: -60%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent); animation: ds-pole-shimmer 1.1s ease 0.4s forwards; } @media (prefers-reduced-motion: reduce) { .ds-pole-divider::after { animation: none; } }"
+    },
+    {
+      "name": "Hours Schedule",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Day/hours table with 2px ink top border and hairline row separators. Today's row in Barber Red. Closed rows muted italic.",
+      "html": "<div class=\"ds-schedule\"><div class=\"ds-day ds-day--today\"><span class=\"ds-day-name\">Tuesday</span><span class=\"ds-day-hours\">9am – 4pm</span></div><div class=\"ds-day\"><span class=\"ds-day-name\">Wednesday</span><span class=\"ds-day-hours\">9am – 4pm</span></div><div class=\"ds-day ds-day--closed\"><span class=\"ds-day-name\">Sunday</span><span class=\"ds-day-hours\">Closed</span></div></div>",
+      "css": ".ds-schedule { border-top: 2px solid #1A1A1A; } .ds-day { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(26,26,26,0.1); font-size: 0.95rem; } .ds-day-name { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; color: #1A1A1A; letter-spacing: 0.04em; } .ds-day-hours { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; color: #6B5E52; } .ds-day--today .ds-day-name, .ds-day--today .ds-day-hours { color: #BE1E2D; font-weight: 700; } .ds-day--closed .ds-day-hours { color: rgba(107,94,82,0.5); font-style: italic; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shop Window at Dusk",
+    "overview": "You walk by and you see it: the pole turning, warm amber through the glass, the barber's name lettered on the window. You know exactly what this place is before you open the door. The design system makes the same promise — nothing decorative, nothing aspirational, nothing that isn't true about the actual shop. What's visible is what's real.\n\nThe palette runs on two fields: deep espresso dark and warm parchment light, alternating section by section to create rhythm without ornament. Against the dark, parchment text reads at extreme contrast — like a name painted on glass backlit from inside. Against the light, press-black type and antique gold accents carry the weight of a trade ledger: specific, unhurried, authoritative. The one accent of barber red appears rarely — on the phone CTA, today's hours, the apostrophe in the logo — never as a field color. Its rarity is its signal.\n\nThe typography does the identity work that imagery would do elsewhere. Abril Fatface in the headline is the hand-painted shop sign. Libre Baskerville in subheadings is the editorial confidence of a shop that has nothing to prove. Source Sans 3 handles everything functional with the neutral clarity of an invoice form. This system explicitly rejects: the slick uniformity of corporate salon chains; the overwrought Instagram aesthetic of hipster barbershops; the generic warmth of WordPress local-business templates; and SaaS-marketing language of gradient text, hero metrics, and scroll-triggered noise.",
+    "keyCharacteristics": [
+      "Two-field alternation (Espresso / Parchment) structures every page rhythm",
+      "Near-square corner radius (2px) across all interactive elements — committed to the action, no softening",
+      "Gold as the reward accent: appears wherever the interface invites engagement; never diluted into a background",
+      "Hairline borders (1px, rgba gold at 0.15–0.3) for grouping — never heavier, never a stripe",
+      "Flat elevation: depth through contrast, not shadow",
+      "Staggered entrance and scroll-reveal motion that serves atmosphere without calling attention to itself"
+    ],
+    "rules": [
+      {
+        "name": "The Two-Field Rule",
+        "body": "Every section uses one of two background fields — Espresso or Parchment. No third background color is ever introduced. The rhythm of dark/light alternation is the structure; adding a mid-tone background breaks it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rarity Rule",
+        "body": "Barber Red appears on at most 2–3 elements per screen. The moment it becomes a field color or fills a large element, it stops functioning as a signal and becomes visual noise.",
+        "section": "colors"
+      },
+      {
+        "name": "The Gold Discipline",
+        "body": "Antique Gold is earned by engagement. It appears on CTAs, active states, focus rings, eyebrows, and accent elements — never as a background, never diluted into a large fill. If gold covers more than 10% of a screen, it has lost its function.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display Rule",
+        "body": "Abril Fatface appears at ≥1.25rem only. The wordmark, service prices, and hero headline are the three contexts. Never use it as a body font or label font.",
+        "section": "typography"
+      },
+      {
+        "name": "The Italic Reserve",
+        "body": "Libre Baskerville italic is for taglines and supporting prose — one instance of breathing room per section. Never use it for inline emphasis within body copy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Ceiling",
+        "body": "The eyebrow label (.eyebrow) appears at most once per section, as a section locator — not on every heading. An eyebrow on every section is scaffolding, not voice.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-First Rule",
+        "body": "Before adding any visual separation between elements, ask whether background alternation or a hairline border achieves the goal. Box-shadows are prohibited.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Grid Gap Technique",
+        "body": "When tabular items need hairline separators, use gap: 1px on a container with a lightly gold-tinted background, and set each cell's background to the section color. The gap bleeds through as the separator.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do alternate Espresso and Parchment as the only two section backgrounds. The rhythm is the layout.",
+      "Do use Antique Gold (#C49A2A) for every interactive state — hover underlines, focus rings, active nav, CTA fills.",
+      "Do keep border-radius at 2px across all interactive elements (buttons, icon containers).",
+      "Do use the grid-gap technique for hairline item separators — gap: 1px on a gold-tinted container.",
+      "Do use full borders (border: 1px solid rgba(#C49A2A, 0.2–0.3)) when outlining a card or info block.",
+      "Do apply text-wrap: balance on h1–h3 to prevent ragged line breaks.",
+      "Do cap body line length at 50ch in single-column contexts.",
+      "Do provide prefers-reduced-motion fallbacks for every animation.",
+      "Do use the Display font (Abril Fatface) for service prices and the wordmark — its only uses outside the hero headline."
+    ],
+    "donts": [
+      "Don't use border-left greater than 1px as a colored accent stripe on cards, callouts, or list items. Rewrite with a full border, a background tint, or nothing.",
+      "Don't use the .eyebrow label on every section. One or two per page at most.",
+      "Don't add Barber Red as a field color or fill a large element with it.",
+      "Don't use gradient text (background-clip: text with a gradient). The system uses solid colors only.",
+      "Don't introduce a third section background color. The Two-Field Rule is structural, not aesthetic.",
+      "Don't replicate the header's backdrop-filter blur in other components.",
+      "Don't use box-shadows. The flat-first rule is absolute.",
+      "Don't make the Reveal component the only path to visible content — provide a default visible state before JS fires.",
+      "Don't style like a corporate salon chain (Great Clips, Sport Clips), a trendy hipster barbershop, a generic local business WordPress template, or a SaaS landing page."
+    ]
+  }
+}

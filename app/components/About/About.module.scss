@@ -1,0 +1,108 @@
+@use '../../_tokens' as g;
+
+.about {
+  background: g.$cream;
+  padding-block: g.$space-xl;
+}
+
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: g.$space-md;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: g.$space-lg;
+}
+
+// ─── Logo — centered statement above the content grid ────────────────────────
+
+.logoHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.logoHeaderImg {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+}
+
+// ─── Two-column content grid ─────────────────────────────────────────────────
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: g.$space-lg;
+  align-items: start;
+  width: 100%;
+
+  @media (max-width: g.$bp-md) {
+    grid-template-columns: 1fr;
+    gap: g.$space-md;
+  }
+}
+
+.text {
+  h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: g.$ink;
+    margin-bottom: g.$space-sm;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: g.$smoke;
+    line-height: 1.75;
+    max-width: 50ch;
+
+    & + p {
+      margin-top: g.$space-sm;
+    }
+  }
+}
+
+.badges {
+  display: flex;
+  flex-direction: column;
+  gap: g.$space-sm;
+
+  @media (max-width: g.$bp-md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(g.$gold, 0.3);
+  background: g.$white;
+}
+
+.badgeIcon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.badgeText {
+  strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: g.$ink;
+    margin-bottom: 0.2rem;
+  }
+
+  span {
+    font-size: 0.85rem;
+    color: g.$smoke;
+    line-height: 1.5;
+  }
+}

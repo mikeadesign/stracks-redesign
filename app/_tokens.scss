@@ -1,0 +1,23 @@
+// ─── Design Tokens (variables only — safe to @use in CSS modules) ───────────
+
+$brown-deep:  #1C0F07;
+$cream:       #F0E8D5;
+$red:         #BE1E2D;
+$gold:        #C49A2A;
+$smoke:       #6B5E52;
+$ink:         #1A1A1A;
+$white:       #FFFFFF;
+
+$font-display:  'Abril Fatface', Georgia, serif;
+$font-heading:  'Playfair Display', Georgia, serif;
+$font-body:     'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+
+$space-xs:  0.5rem;
+$space-sm:  1rem;
+$space-md:  2rem;
+$space-lg:  4rem;
+$space-xl:  7rem;
+
+$bp-sm: 600px;
+$bp-md: 768px;
+$bp-lg: 1024px;

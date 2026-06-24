@@ -1,0 +1,236 @@
+@use '../../_tokens' as g;
+@use 'sass:color';
+
+// ─── Entrance keyframes ───────────────────────────────────────────────────────
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 0.9; transform: scaleY(0.7); }
+}
+
+// ─── Hero ────────────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  background-color: g.$brown-deep; // fallback while photo loads
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+// Background photo — Next.js fill renders position:absolute automatically
+.heroBg {
+  object-fit: cover;
+  object-position: center;
+}
+
+// Dark espresso overlay + diagonal grain texture
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(g.$brown-deep, 0.82);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(g.$red, 0.04) 28px,
+    rgba(g.$red, 0.04) 30px
+  );
+}
+
+// Centered poster composition — all content stacks on a vertical axis
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin-inline: auto;
+  padding-inline: g.$space-md;
+  padding-block: g.$space-xl;
+  padding-top: calc(g.$space-xl + 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+// ─── Award kicker with flanking gold rules ────────────────────────────────────
+
+.award {
+  display: flex;
+  align-items: center;
+  gap: g.$space-sm;
+  width: 100%;
+  max-width: 480px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: g.$gold;
+  margin-bottom: g.$space-md;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 0.1s;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(g.$gold, 0.35);
+  }
+}
+
+// ─── Headline — Abril Fatface, the hand-painted shop sign ────────────────────
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  line-height: 0.95;
+  color: g.$cream;
+  margin-bottom: g.$space-sm;
+  text-wrap: balance;
+  animation: fadeUp 0.9s ease both;
+  animation-delay: 0.3s;
+}
+
+// ─── Divider ─────────────────────────────────────────────────────────────────
+
+.divider {
+  width: 80px;
+  height: 2px;
+  background: g.$red;
+  margin-block: g.$space-md;
+  transform-origin: center center;
+  animation: drawLine 0.6s ease both;
+  animation-delay: 0.85s;
+}
+
+// ─── Establishment line ────────────────────────────────────────────────────────
+
+.estLine {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(g.$cream, 0.65);
+  margin-bottom: g.$space-sm;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 1.0s;
+}
+
+// ─── Tagline ─────────────────────────────────────────────────────────────────
+
+.tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-style: italic;
+  color: rgba(g.$cream, 0.7);
+  max-width: 44ch;
+  line-height: 1.65;
+  margin-bottom: g.$space-lg;
+  text-wrap: pretty;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 1.15s;
+}
+
+// ─── CTA ─────────────────────────────────────────────────────────────────────
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: g.$space-sm;
+  align-items: center;
+  justify-content: center;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 1.35s;
+}
+
+.ctaCall {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: g.$brown-deep;
+  background: g.$gold;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s;
+
+  &:hover {
+    background: color.adjust(g.$gold, $lightness: 8%);
+    transform: translateY(-1px);
+  }
+}
+
+.ctaNote {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(g.$cream, 0.45);
+  letter-spacing: 0.05em;
+}
+
+// ─── Scroll indicator ─────────────────────────────────────────────────────────
+
+.scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.35;
+  animation: fadeUp 0.6s ease both;
+  animation-delay: 1.7s;
+
+  span {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: g.$cream;
+  }
+}
+
+.scrollLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, g.$cream, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+// ─── Reduced motion ───────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .award,
+  .headline,
+  .divider,
+  .estLine,
+  .tagline,
+  .cta,
+  .scroll {
+    animation: none;
+  }
+
+  .scrollLine {
+    animation: none;
+    opacity: 0.4;
+  }
+}
