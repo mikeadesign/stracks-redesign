@@ -1,3 +1,4 @@
+import Year from './Year';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
@@ -20,7 +21,7 @@ export default function Footer() {
             </a>
           </nav>
           <p className={styles.copy}>
-            &copy; {new Date().getFullYear()}{' '}Strack&rsquo;s Barbershop. Cash only.
+            &copy; <Year />{' '}Strack&rsquo;s Barbershop. Cash only.
           </p>
         </div>
       </footer>

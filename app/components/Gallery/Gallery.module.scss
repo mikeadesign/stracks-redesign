@@ -24,7 +24,6 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  cursor: pointer;
 
   @media (max-width: g.$bp-lg) {
     aspect-ratio: 1 / 1;

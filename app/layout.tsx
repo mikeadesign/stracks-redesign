@@ -10,7 +10,7 @@ const abrilFatface = Abril_Fatface({
 });
 
 const playfairDisplay = Playfair_Display({
-  weight: ['400', '700', '900'],
+  weight: ['400', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   variable: '--font-heading',

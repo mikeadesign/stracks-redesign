@@ -25,7 +25,7 @@
 
   p {
     font-size: 1rem;
-    color: rgba(g.$cream, 0.5);
+    color: rgba(g.$cream, 0.75);
     max-width: 50ch;
     line-height: 1.65;
   }
@@ -33,7 +33,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1px;
   background: rgba(g.$gold, 0.15);
   border: 1px solid rgba(g.$gold, 0.15);
@@ -64,7 +64,7 @@
     font-family: var(--font-body);
     font-size: 0.75rem;
     font-style: normal;
-    color: rgba(g.$cream, 0.45);
+    color: rgba(g.$cream, 0.72);
     margin-top: 0.2rem;
   }
 }
@@ -82,12 +82,13 @@
   padding: 1.25rem 1.75rem;
   border: 1px solid rgba(g.$gold, 0.2);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
 
   p {
     font-size: 0.85rem;
-    color: rgba(g.$cream, 0.5);
+    color: rgba(g.$cream, 0.75);
     line-height: 1.5;
 
     strong {

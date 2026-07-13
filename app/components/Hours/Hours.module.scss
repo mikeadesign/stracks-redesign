@@ -10,11 +10,12 @@
   margin-inline: auto;
   padding-inline: g.$space-md;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // minmax(0, …) lets columns shrink below child min-content (long email link)
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: g.$space-lg;
 
   @media (max-width: g.$bp-md) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: g.$space-md;
   }
 }
@@ -44,7 +45,7 @@
 
   &.closed {
     .dayHours {
-      color: rgba(g.$smoke, 0.5);
+      color: g.$smoke; // italic carries the de-emphasis; alpha would fail contrast
       font-style: italic;
     }
   }
@@ -100,13 +101,17 @@
   width: 40px;
   height: 40px;
   background: g.$brown-deep;
-  color: g.$cream;
+  color: g.$gold;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
   flex-shrink: 0;
   border-radius: 2px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .contactText {
@@ -126,6 +131,7 @@
     font-size: 1rem;
     color: g.$ink;
     line-height: 1.3;
+    overflow-wrap: anywhere; // long email address on narrow screens
 
     &:hover {
       color: g.$red;
