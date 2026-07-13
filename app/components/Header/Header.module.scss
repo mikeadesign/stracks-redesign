@@ -1,4 +1,5 @@
 @use '../../_tokens' as g;
+@use 'sass:color';
 
 .header {
   position: fixed;
@@ -98,6 +99,6 @@
   transition: background 0.2s;
 
   &:hover {
-    background: darken(g.$red, 8%);
+    background: color.adjust(g.$red, $lightness: -8%);
   }
 }
