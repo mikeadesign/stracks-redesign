@@ -20,6 +20,8 @@
   max-width: 1100px;
   margin-inline: auto;
   padding-inline: g.$space-md;
+  position: relative;
+  z-index: 1; // bar controls (logo, phone, hamburger/X) stay above the panel
 }
 
 .logo {
@@ -27,9 +29,18 @@
   font-size: 1.25rem;
   color: g.$cream;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 
-  span {
+  span:first-child {
     color: g.$red;
+  }
+}
+
+// Only on very small screens does the wordmark drop to "Strack's",
+// matching the footer wordmark
+.logoWord {
+  @media (max-width: 360px) {
+    display: none;
   }
 }
 
@@ -79,8 +90,7 @@
     }
   }
 
-  // Phone-only header on small screens: the page is a single scroll and the
-  // call button is the one action that matters — section links stay in the footer
+  // Inline links collapse on small screens — the hamburger panel takes over
   @media (max-width: g.$bp-sm) {
     display: none;
   }
@@ -98,9 +108,145 @@
   padding: 0.4rem 1rem;
   border-radius: 2px;
   letter-spacing: 0.04em;
+  white-space: nowrap;
   transition: background 0.2s;
 
   &:hover {
     background: color.adjust(g.$red, $lightness: -8%);
+  }
+
+  // The mobile panel carries the call button — the bar keeps just logo + hamburger
+  @media (max-width: g.$bp-sm) {
+    display: none;
+  }
+}
+
+// ─── Hamburger — mobile only ──────────────────────────────────────────────────
+
+.menuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  @media (max-width: g.$bp-sm) {
+    display: flex;
+  }
+}
+
+.menuBar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: g.$cream;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+// Hamburger → X
+.menuButtonOpen {
+  .menuBar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menuBar:nth-child(2) {
+    opacity: 0;
+  }
+  .menuBar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+// ─── Mobile panel — full-screen espresso overlay under the bar ───────────────
+
+.panel {
+  // The header's backdrop-filter makes it the containing block for fixed
+  // descendants, so position the panel absolutely below the 64px bar instead
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: calc(100dvh - 64px);
+  background: g.$brown-deep;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: g.$space-md;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0.3s;
+
+  @media (min-width: calc(g.$bp-sm + 1px)) {
+    display: none; // never renders on desktop
+  }
+}
+
+.panelOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.panelLink {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: g.$cream;
+  padding: 0.5rem 1rem; // generous touch target
+  transition: color 0.2s;
+
+  &:hover {
+    color: g.$gold;
+  }
+}
+
+.panelLinkActive {
+  color: g.$gold;
+}
+
+// The barber-stripe motif from the hero, reused as the panel's divider
+.panelStripe {
+  width: 72px;
+  height: 6px;
+  margin-block: g.$space-xs;
+  background: repeating-linear-gradient(
+    -45deg,
+    g.$red 0px,
+    g.$red 5px,
+    g.$white 5px,
+    g.$white 10px
+  );
+}
+
+.panelPhone {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: g.$brown-deep;
+  background: g.$gold;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+}
+
+.panelNote {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: g.$cream-secondary;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+  .menuBar {
+    transition: none;
   }
 }
