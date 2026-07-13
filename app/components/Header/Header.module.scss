@@ -145,7 +145,8 @@
   width: 22px;
   height: 2px;
   background: g.$cream;
-  transition: transform 0.25s ease, opacity 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 // Hamburger → X
@@ -179,8 +180,10 @@
   gap: g.$space-md;
   opacity: 0;
   visibility: hidden;
+  // Snap visibility on open (0s, no delay) so the first link is immediately
+  // focusable; on close, hold it visible for the fade, then hide.
   transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              visibility 0.3s;
+              visibility 0s linear 0.3s;
 
   @media (min-width: calc(g.$bp-sm + 1px)) {
     display: none; // never renders on desktop
@@ -190,6 +193,8 @@
 .panelOpen {
   opacity: 1;
   visibility: visible;
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s;
 }
 
 .panelLink {
@@ -213,13 +218,7 @@
   width: 72px;
   height: 6px;
   margin-block: g.$space-xs;
-  background: repeating-linear-gradient(
-    -45deg,
-    g.$red 0px,
-    g.$red 5px,
-    g.$white 5px,
-    g.$white 10px
-  );
+  @include g.barber-stripe;
 }
 
 .panelPhone {

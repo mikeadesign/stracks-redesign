@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Header.module.scss';
 
 const NAV_LINKS = [
@@ -18,6 +18,8 @@ const MENU_LINKS = [
 export default function Header() {
   const [activeSection, setActiveSection] = useState<string>('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const sectionIds = MENU_LINKS.map((l) => l.id);
@@ -43,11 +45,22 @@ export default function Header() {
     return () => observer.disconnect();
   }, []);
 
-  // Lock page scroll while the panel is open; close on Escape
+  // While the panel is open: lock scroll, close on Escape, make the page
+  // behind it inert so keyboard/AT focus can't land on covered content, move
+  // focus into the panel, and restore it to the trigger on close.
   useEffect(() => {
     if (!menuOpen) return;
 
     document.body.style.overflow = 'hidden';
+
+    const behind = document.querySelectorAll('main, footer');
+    behind.forEach((el) => el.setAttribute('inert', ''));
+
+    // The panel transitions from visibility:hidden; a .focus() on a
+    // still-hidden element silently no-ops. Force a style flush so the
+    // .panelOpen class (visibility:visible) is applied before focusing.
+    firstLinkRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMenuOpen(false);
     };
@@ -55,7 +68,9 @@ export default function Header() {
 
     return () => {
       document.body.style.overflow = '';
+      behind.forEach((el) => el.removeAttribute('inert'));
       window.removeEventListener('keydown', onKey);
+      menuButtonRef.current?.focus();
     };
   }, [menuOpen]);
 
@@ -78,6 +93,7 @@ export default function Header() {
           ))}
           <a href="tel:8476586948" className={styles.phone}>847-658-6948</a>
           <button
+            ref={menuButtonRef}
             type="button"
             className={`${styles.menuButton} ${menuOpen ? styles.menuButtonOpen : ''}`}
             aria-expanded={menuOpen}
@@ -98,9 +114,10 @@ export default function Header() {
         aria-label="Section navigation"
         aria-hidden={!menuOpen}
       >
-        {MENU_LINKS.map(({ href, label, id }) => (
+        {MENU_LINKS.map(({ href, label, id }, i) => (
           <a
             key={id}
+            ref={i === 0 ? firstLinkRef : undefined}
             href={href}
             className={`${styles.panelLink} ${activeSection === id ? styles.panelLinkActive : ''}`}
             aria-current={activeSection === id ? 'true' : undefined}

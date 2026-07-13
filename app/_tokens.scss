@@ -26,3 +26,18 @@ $space-xl:  7rem;
 $bp-sm: 600px;
 $bp-md: 768px;
 $bp-lg: 1024px;
+
+// ─── Mixins (emit no CSS until @included — safe alongside the variables) ─────
+
+// The barber-pole stripe as a brand mark. One definition so the hero ribbon
+// and mobile-menu divider can't drift apart. $band is the width of each
+// coloured stripe; the period is 2×$band.
+@mixin barber-stripe($band: 6px) {
+  background: repeating-linear-gradient(
+    -45deg,
+    $red 0,
+    $red $band,
+    $white $band,
+    $white ($band * 2)
+  );
+}
