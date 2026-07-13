@@ -25,6 +25,10 @@ const sourceSans3 = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.stracksbarbershop.com'),
+  alternates: {
+    canonical: '/',
+  },
   title: "Strack's Barbershop | Algonquin, IL",
   description:
     "Voted Best of the Fox — a classic barbershop in Algonquin, IL. Haircuts, beard trims, and old-school service at 150 S Main St. Call 847-658-6948.",
