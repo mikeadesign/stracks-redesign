@@ -5,17 +5,19 @@ import styles from './Reveal.module.scss';
 
 interface RevealProps {
   children: React.ReactNode;
-  delay?: number; // ms
+  delay?: number;
   className?: string;
 }
 
 export default function Reveal({ children, delay = 0, className = '' }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    setMounted(true);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -31,12 +33,12 @@ export default function Reveal({ children, delay = 0, className = '' }: RevealPr
     return () => observer.disconnect();
   }, []);
 
+  const classes = [styles.reveal, mounted && styles.mounted, visible && styles.visible, className]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div
-      ref={ref}
-      className={`${styles.reveal} ${visible ? styles.visible : ''} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={classes} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );

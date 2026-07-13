@@ -43,6 +43,8 @@
   }
 }
 
+// ─── Text column ─────────────────────────────────────────────────────────────
+
 .text {
   h2 {
     font-family: var(--font-heading);
@@ -51,6 +53,7 @@
     line-height: 1.1;
     color: g.$ink;
     margin-bottom: g.$space-sm;
+    text-wrap: balance;
   }
 
   p {
@@ -65,44 +68,76 @@
   }
 }
 
-.badges {
+// ─── Credentials column — white panel balances the h2 on the left ────────────
+
+.credentials {
+  background: g.$white;
+  border-top: 2px solid g.$gold;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: g.$space-sm;
-
-  @media (max-width: g.$bp-md) {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
 }
 
-.badge {
+// ─── Award — featured credential with seal image ──────────────────────────────
+// White panel background matches JPEG white BG — no visible seam
+
+.award {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.5rem;
-  border: 1px solid rgba(g.$gold, 0.3);
-  background: g.$white;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(g.$gold, 0.25);
+  margin-bottom: 0;
 }
 
-.badgeIcon {
-  font-size: 1.75rem;
-  line-height: 1;
+.awardSeal {
+  width: 120px;
+  height: 120px;
   flex-shrink: 0;
+  margin-bottom: 0.75rem;
 }
 
-.badgeText {
-  strong {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    color: g.$ink;
-    margin-bottom: 0.2rem;
-  }
+.awardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: g.$ink;
+  line-height: 1.2;
+}
 
-  span {
-    font-size: 0.85rem;
-    color: g.$smoke;
-    line-height: 1.5;
+.awardSub {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: g.$smoke;
+  margin-top: 0.3rem;
+}
+
+// ─── Fact items — text-only, no cards ────────────────────────────────────────
+
+.factItem {
+  padding-block: 1.25rem;
+  border-bottom: 1px solid rgba(g.$gold, 0.18);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
+}
+
+.factTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: g.$ink;
+  margin-bottom: 0.4rem;
+}
+
+.factDesc {
+  font-size: 0.92rem;
+  color: g.$smoke;
+  line-height: 1.7;
 }

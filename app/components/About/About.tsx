@@ -2,24 +2,6 @@ import Image from 'next/image';
 import Reveal from '../Reveal/Reveal';
 import styles from './About.module.scss';
 
-const badges = [
-  {
-    icon: '✂️',
-    title: 'Award-Winning',
-    desc: 'Voted Best of the Fox by Northwest Herald readers',
-  },
-  {
-    icon: '💈',
-    title: 'Old-School Craft',
-    desc: 'Original barbershop seating, straight-razor service, and time-tested technique',
-  },
-  {
-    icon: '📍',
-    title: '150 S Main St, Algonquin',
-    desc: 'Right in the heart of downtown — easy to find, worth the trip',
-  },
-];
-
 export default function About() {
   return (
     <section id="about" className={styles.about}>
@@ -38,7 +20,6 @@ export default function About() {
 
         <div className={styles.grid}>
           <Reveal className={styles.text}>
-            <p className="eyebrow">South Main Street &middot; Algonquin</p>
             <h2>
               The kind of shop<br />
               they don&rsquo;t build<br />
@@ -56,18 +37,39 @@ export default function About() {
             </p>
           </Reveal>
 
-          <div className={styles.badges}>
-            {badges.map((b, i) => (
-              <Reveal key={b.title} delay={i * 120}>
-                <div className={styles.badge}>
-                  <span className={styles.badgeIcon}>{b.icon}</span>
-                  <div className={styles.badgeText}>
-                    <strong>{b.title}</strong>
-                    <span>{b.desc}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          <div className={styles.credentials}>
+
+            <Reveal>
+              <div className={styles.award}>
+                <Image
+                  src="/images/vendor/NWH-2019-BOF-Logo.jpg"
+                  alt="Northwest Herald Readers' Choice — Best of the Fox 2019"
+                  width={120}
+                  height={120}
+                  className={styles.awardSeal}
+                  style={{ objectFit: 'contain' }}
+                />
+                <p className={styles.awardTitle}>Best of the Fox</p>
+                <p className={styles.awardSub}>Northwest Herald Readers&rsquo; Choice</p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={120} className={styles.factItem}>
+              <p className={styles.factTitle}>Classic craft, no shortcuts</p>
+              <p className={styles.factDesc}>
+                Original leather chairs, straight-razor service, walls full of
+                memorabilia. The kind of shop that takes pride in what it does.
+              </p>
+            </Reveal>
+
+            <Reveal delay={240} className={styles.factItem}>
+              <p className={styles.factTitle}>150 S Main St, Algonquin</p>
+              <p className={styles.factDesc}>
+                Right in the heart of downtown. Easy to find, easy to park,
+                worth the trip.
+              </p>
+            </Reveal>
+
           </div>
         </div>
 
