@@ -12,6 +12,11 @@ $font-display:  'Abril Fatface', Georgia, serif;
 $font-heading:  'Playfair Display', Georgia, serif;
 $font-body:     'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
 
+// Secondary text on dark surfaces (nav links, footer copy, section intros
+// over $brown-deep). Holds ≥4.5:1 against $brown-deep at body sizes —
+// don't drop the alpha below this without re-checking contrast.
+$cream-secondary: rgba($cream, 0.75);
+
 $space-xs:  0.5rem;
 $space-sm:  1rem;
 $space-md:  2rem;

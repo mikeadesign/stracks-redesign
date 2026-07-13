@@ -49,7 +49,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(g.$cream, 0.75);
+  color: g.$cream-secondary;
   transition: color 0.2s;
   position: relative;
   padding-block: 0.75rem; // 44px touch target within the 64px bar

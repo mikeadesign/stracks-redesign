@@ -2,7 +2,7 @@
 
 .footer {
   background: g.$brown-deep;
-  color: rgba(g.$cream, 0.72);
+  color: g.$cream-secondary;
   padding-block: g.$space-lg;
   border-top: 1px solid g.$gold;
 }
@@ -45,7 +45,7 @@
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(g.$cream, 0.72);
+    color: g.$cream-secondary;
     padding: 0.75rem 0.25rem; // 44px touch target
     margin-block: -0.5rem;    // without inflating the visual gap
     transition: color 0.2s;

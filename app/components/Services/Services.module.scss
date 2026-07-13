@@ -25,7 +25,7 @@
 
   p {
     font-size: 1rem;
-    color: rgba(g.$cream, 0.75);
+    color: g.$cream-secondary;
     max-width: 50ch;
     line-height: 1.65;
   }
@@ -64,7 +64,7 @@
     font-family: var(--font-body);
     font-size: 0.75rem;
     font-style: normal;
-    color: rgba(g.$cream, 0.72);
+    color: g.$cream-secondary;
     margin-top: 0.2rem;
   }
 }
@@ -88,7 +88,7 @@
 
   p {
     font-size: 0.85rem;
-    color: rgba(g.$cream, 0.75);
+    color: g.$cream-secondary;
     line-height: 1.5;
 
     strong {
