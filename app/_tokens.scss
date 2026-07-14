@@ -28,6 +28,8 @@ $bp-sm: 600px;
 $bp-md: 768px;
 $bp-lg: 1024px;
 
+$header-height: 64px;
+
 // ─── Mixins (emit no CSS until @included — safe alongside the variables) ─────
 
 // The barber-pole stripe as a brand mark. One definition so the hero ribbon

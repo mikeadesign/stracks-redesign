@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: g.$header-height;
   max-width: 1100px;
   margin-inline: auto;
   padding-inline: g.$space-md;
@@ -63,7 +63,7 @@
   color: g.$cream-secondary;
   transition: color 0.2s;
   position: relative;
-  padding-block: 0.75rem; // 44px touch target within the 64px bar
+  padding-block: 0.75rem; // 44px touch target within the header bar
 
   &::after {
     content: '';
@@ -166,12 +166,12 @@
 
 .panel {
   // The header's backdrop-filter makes it the containing block for fixed
-  // descendants, so position the panel absolutely below the 64px bar instead
+  // descendants, so position the panel absolutely below the bar instead
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  height: calc(100dvh - 64px);
+  height: calc(100dvh - #{g.$header-height});
   background: g.$brown-deep;
   display: flex;
   flex-direction: column;
