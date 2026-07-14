@@ -7,6 +7,7 @@ $gold:        #C49A2A;
 $smoke:       #6B5E52;
 $ink:         #1A1A1A;
 $white:       #FFFFFF;
+$pole-blue:   #34558B; // the blue band of the shop's actual barber pole — used only in the stripe motif
 
 $font-display:  'Abril Fatface', Georgia, serif;
 $font-heading:  'Playfair Display', Georgia, serif;
@@ -30,14 +31,19 @@ $bp-lg: 1024px;
 // ─── Mixins (emit no CSS until @included — safe alongside the variables) ─────
 
 // The barber-pole stripe as a brand mark. One definition so the hero ribbon
-// and mobile-menu divider can't drift apart. $band is the width of each
-// coloured stripe; the period is 2×$band.
+// and mobile-menu divider can't drift apart. Red/white/blue/white — the
+// tri-color of a real American pole (two-color red/white reads as a candy
+// cane). $band is the width of each coloured stripe; the period is 4×$band.
 @mixin barber-stripe($band: 6px) {
   background: repeating-linear-gradient(
     -45deg,
     $red 0,
     $red $band,
     $white $band,
-    $white ($band * 2)
+    $white ($band * 2),
+    $pole-blue ($band * 2),
+    $pole-blue ($band * 3),
+    $white ($band * 3),
+    $white ($band * 4)
   );
 }
