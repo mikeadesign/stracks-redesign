@@ -60,7 +60,10 @@
     font-size: 1.05rem;
     color: g.$smoke;
     line-height: 1.75;
-    max-width: 50ch;
+    text-wrap: pretty;
+    // No max-width cap here — the grid column is already narrow enough
+    // (~45ch) that a 50ch cap only fought the column width, leaving the
+    // paragraph's right edge ragged against the full-width h2 above it.
 
     & + p {
       margin-top: g.$space-sm;
@@ -72,7 +75,7 @@
 
 .credentials {
   background: g.$white;
-  border-top: 2px solid g.$gold;
+  border: 1px solid rgba(g.$gold, 0.35);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -94,6 +97,7 @@
 .awardSeal {
   width: 120px;
   height: 120px;
+  object-fit: contain;
   flex-shrink: 0;
   margin-bottom: 0.75rem;
 }
@@ -106,12 +110,14 @@
   line-height: 1.2;
 }
 
+// A plaque caption, not a SaaS eyebrow — italic serif rather than
+// tracked uppercase, reading like the small print under a printed award.
 .awardSub {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   color: g.$smoke;
   margin-top: 0.3rem;
 }
@@ -128,12 +134,37 @@
   }
 }
 
+// Shared by a plain <p> (most fact items) and an <a> (the address item) —
+// display:block matches the <p> default since anchors default to inline.
+// The hover rule and icon only apply to the linked variant.
 .factTitle {
+  display: block;
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
   color: g.$ink;
   margin-bottom: 0.4rem;
+}
+
+a.factTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-block: 0.75rem;
+  margin-block: -0.5rem; // expands the tap target toward 44px without inflating the visual gap
+
+  &:hover {
+    color: g.$red;
+  }
+}
+
+// Marks the address item as location info at a glance, distinct from
+// the plain-text fact item above it
+.factIcon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: g.$gold;
 }
 
 .factDesc {

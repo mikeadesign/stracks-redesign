@@ -14,7 +14,6 @@ export default function About() {
             width={600}
             height={490}
             className={styles.logoHeaderImg}
-            style={{ height: 'auto' }}
           />
         </Reveal>
 
@@ -47,7 +46,6 @@ export default function About() {
                   width={120}
                   height={120}
                   className={styles.awardSeal}
-                  style={{ objectFit: 'contain' }}
                 />
                 <p className={styles.awardTitle}>Best of the Fox</p>
                 <p className={styles.awardSub}>Northwest Herald Readers&rsquo; Choice</p>
@@ -55,15 +53,35 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={120} className={styles.factItem}>
-              <p className={styles.factTitle}>Classic craft, no shortcuts</p>
+              <p className={styles.factTitle}>Serving Algonquin since 2011</p>
               <p className={styles.factDesc}>
-                Original leather chairs, straight-razor service, walls full of
-                memorabilia. The kind of shop that takes pride in what it does.
+                More than a decade of regulars, referrals, and the same
+                attention to detail on every visit.
               </p>
             </Reveal>
 
             <Reveal delay={240} className={styles.factItem}>
-              <p className={styles.factTitle}>150 S Main St, Algonquin</p>
+              <a
+                className={styles.factTitle}
+                href="https://maps.google.com/?q=150+S+Main+St+Algonquin+IL+60102"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  className={styles.factIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                150 S Main St, Algonquin
+              </a>
               <p className={styles.factDesc}>
                 Right in the heart of downtown. Easy to find, easy to park,
                 worth the trip.
