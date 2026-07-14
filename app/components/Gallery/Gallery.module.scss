@@ -5,11 +5,30 @@
   overflow: hidden;
 }
 
+// A light proof-point caption, not a full section intro — smaller than
+// About/Services/Hours' h2s so the photos stay the visual lead.
+.heading {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: g.$space-md;
+  padding-top: g.$space-lg;
+  padding-bottom: g.$space-md;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: g.$cream;
+  text-align: center;
+}
+
 .strip {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  // 7 tracks so the featured first photo can span 2 (double width) while
+  // the other 5 keep 1 each — stays a single row, no wrap, no phantom cell.
+  grid-template-columns: repeat(7, 1fr);
 
   @media (max-width: g.$bp-lg) {
+    // Tighter viewports don't have room for a graceful two-tier strip
+    // without either awkward wrapping or an empty cell — keep it uniform.
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
@@ -25,6 +44,19 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
 
+  // The lead photo (the chairs) spans 2 tracks. Its aspect-ratio is 3:2
+  // instead of 3:4 so its natural height still matches the row: at 2x the
+  // column width, 3:2 resolves to the same height as a single 3:4 column.
+  &:first-child {
+    grid-column: span 2;
+    aspect-ratio: 3 / 2;
+
+    @media (max-width: g.$bp-lg) {
+      grid-column: span 1;
+      aspect-ratio: 1 / 1;
+    }
+  }
+
   @media (max-width: g.$bp-lg) {
     aspect-ratio: 1 / 1;
   }
@@ -34,26 +66,15 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(20%) contrast(1.05);
-    transition: transform 0.5s ease, filter 0.4s ease;
+    // Full color on every device — the old grayscale-until-hover treatment
+    // never paid off for touch, which is most first-time-visitor traffic.
+    filter: contrast(1.05);
+    transition: transform 0.5s ease;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(g.$brown-deep, 0.3);
-    transition: opacity 0.4s ease;
-  }
-
-  &:hover {
-    img {
-      transform: scale(1.06);
-      filter: grayscale(0%) contrast(1.05);
-    }
-
-    &::after {
-      opacity: 0;
-    }
+  // Harmless bonus motion for mouse users — not required to see the photo,
+  // since the baseline (full color, no overlay) is now identical everywhere.
+  &:hover img {
+    transform: scale(1.06);
   }
 }
