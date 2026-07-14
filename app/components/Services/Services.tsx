@@ -17,7 +17,6 @@ export default function Services() {
     <section id="services" className={styles.services}>
       <div className={styles.inner}>
         <Reveal className={styles.header}>
-          <p className="eyebrow">The Menu</p>
           <h2>Services &amp; Pricing</h2>
           <p>
             Straightforward pricing, no upsells. Cash only — bring your wallet,
@@ -42,7 +41,7 @@ export default function Services() {
             <span className={styles.giftNote}>Gift Certificates</span>
             <p>
               <strong>Cash only.</strong> Gift certificates available — ask at the shop.
-              Appointments recommended; walk-ins welcome when time permits.
+              Call ahead — appointments fill up fast. Walk-ins welcome if there&rsquo;s an opening.
             </p>
           </div>
         </Reveal>

@@ -9,8 +9,8 @@ export default function Hours() {
           <h2>Hours</h2>
           <Schedule />
           <p className={styles.note}>
-            Appointments recommended — call ahead. Walk-ins are welcome when
-            time permits.
+            Call ahead — appointments fill up fast. Walk-ins welcome if
+            there&rsquo;s an opening.
           </p>
         </div>
 

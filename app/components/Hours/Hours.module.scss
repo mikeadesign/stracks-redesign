@@ -50,7 +50,9 @@
     }
   }
 
-  &.today {
+  // Red/bold means "open today" — a closed today stays in the neutral
+  // .closed styling above so "Closed" never reads as an alarm.
+  &.today:not(.closed) {
     .dayName {
       color: g.$red;
       font-weight: 700;
@@ -58,6 +60,12 @@
     .dayHours {
       color: g.$red;
       font-weight: 700;
+    }
+  }
+
+  &.today.closed {
+    .dayName {
+      font-weight: 700; // still marks "today" for orientation, no alarm color
     }
   }
 
