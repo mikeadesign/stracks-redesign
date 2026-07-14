@@ -45,16 +45,21 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: g.$space-sm;
+  gap: 0.6rem;
   padding: 1.4rem 1.75rem;
   background: g.$brown-deep;
   border-right: 1px solid rgba(g.$gold, 0.15);
   border-bottom: 1px solid rgba(g.$gold, 0.15);
-  transition: background 0.2s;
+  // No hover state — these rows aren't interactive
+}
 
-  &:hover {
-    background: rgba(g.$gold, 0.06);
-  }
+// Dotted leader connecting name to price, printed price-board style.
+// Aligned to the shared baseline via a small optical lift.
+.leader {
+  flex: 1;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted rgba(g.$cream, 0.3);
+  transform: translateY(-0.3em);
 }
 
 .itemName {

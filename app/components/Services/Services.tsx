@@ -31,6 +31,7 @@ export default function Services() {
                   {s.name}
                   {s.note && <span>{s.note}</span>}
                 </span>
+                <span className={styles.leader} aria-hidden="true" />
                 <span className={styles.price}>{s.price}</span>
               </div>
             ))}
