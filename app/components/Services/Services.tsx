@@ -38,11 +38,17 @@ export default function Services() {
         </Reveal>
         <Reveal delay={300}>
           <div className={styles.footer}>
-            <span className={styles.giftNote}>Gift Certificates</span>
-            <p>
-              <strong>Cash only.</strong> Gift certificates available — ask at the shop.
-              Call ahead — appointments fill up fast. Walk-ins welcome if there&rsquo;s an opening.
-            </p>
+            <div className={styles.footerItem}>
+              <strong>Gift Certificates</strong>
+              <p>Available in any amount &mdash; ask at the shop.</p>
+            </div>
+            <div className={styles.footerItem}>
+              <strong>Call Ahead</strong>
+              <p>
+                Appointments fill up fast &mdash; walk-ins welcome if
+                there&rsquo;s an opening.
+              </p>
+            </div>
           </div>
         </Reveal>
       </div>
