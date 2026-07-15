@@ -41,7 +41,7 @@ export default function About() {
             <Reveal>
               <div className={styles.award}>
                 <Image
-                  src="/images/vendor/NWH-2019-BOF-Logo.jpg"
+                  src="/images/vendor/NWH-2019-BOF-Logo.webp"
                   alt="Northwest Herald Readers' Choice — Best of the Fox 2019"
                   width={120}
                   height={120}

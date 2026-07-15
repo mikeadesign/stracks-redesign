@@ -6,7 +6,7 @@ export default function Hero() {
     <section className={styles.hero}>
       {/* Background photo — decorative, aria-hidden via empty alt */}
       <Image
-        src="/images/shop-outside.jpg"
+        src="/images/shop-outside.webp"
         alt=""
         fill
         className={styles.heroBg}

@@ -2,12 +2,12 @@ import Image from 'next/image';
 import styles from './Gallery.module.scss';
 
 const photos = [
-  { src: '/images/home/1.jpg', alt: "Original leather barber chairs at Strack's Barbershop" },
-  { src: '/images/home/2.jpg', alt: 'Vintage Pinaud Clubman talc and shaving brush at the shaving station' },
-  { src: '/images/home/3.jpg', alt: "Antique brass cash register with the shop's engraved drawer" },
-  { src: '/images/home/4.jpg', alt: "Vintage hair clippers resting on the barber's leather strop" },
-  { src: '/images/home/5.jpg', alt: 'A straight razor resting on its leather strop' },
-  { src: '/images/home/6.jpg', alt: 'Illinois Razor Strop Co. leather strop, No. 127' },
+  { src: '/images/home/1.webp', alt: "Original leather barber chairs at Strack's Barbershop" },
+  { src: '/images/home/2.webp', alt: 'Vintage Pinaud Clubman talc and shaving brush at the shaving station' },
+  { src: '/images/home/3.webp', alt: "Antique brass cash register with the shop's engraved drawer" },
+  { src: '/images/home/4.webp', alt: "Vintage hair clippers resting on the barber's leather strop" },
+  { src: '/images/home/5.webp', alt: 'A straight razor resting on its leather strop' },
+  { src: '/images/home/6.webp', alt: 'Illinois Razor Strop Co. leather strop, No. 127' },
 ];
 
 export default function Gallery() {
