@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Reveal from '../Reveal/Reveal';
+import { BASE_PATH } from '../../basePath';
 import styles from './About.module.scss';
 
 export default function About() {
@@ -9,7 +10,7 @@ export default function About() {
 
         <Reveal className={styles.logoHeader}>
           <Image
-            src="/images/stracks-barbershop-sign-2024.gif"
+            src={`${BASE_PATH}/images/stracks-barbershop-sign-2024.gif`}
             alt="Strack's Barbershop — Est. 2011"
             width={600}
             height={490}
@@ -41,7 +42,7 @@ export default function About() {
             <Reveal>
               <div className={styles.award}>
                 <Image
-                  src="/images/vendor/NWH-2019-BOF-Logo.webp"
+                  src={`${BASE_PATH}/images/vendor/NWH-2019-BOF-Logo.webp`}
                   alt="Northwest Herald Readers' Choice — Best of the Fox 2019"
                   width={120}
                   height={120}
