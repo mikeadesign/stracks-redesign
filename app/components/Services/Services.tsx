@@ -1,16 +1,6 @@
+import { services } from '@/app/services';
 import Reveal from '../Reveal/Reveal';
 import styles from './Services.module.scss';
-
-const services = [
-  { name: "Men's Haircut", price: '$35' },
-  { name: "Men's Haircut with Beard", price: '$50' },
-  { name: "Senior's Haircut", note: 'Ages 65+', price: '$30' },
-  { name: "Senior's Haircut with Beard", note: 'Ages 65+', price: '$40' },
-  { name: 'Beard Trim', price: '$25' },
-  { name: "Kid's Haircut", note: 'Ages 10 & under', price: '$30' },
-  { name: 'Bald / Skin Fade', price: '$40' },
-  { name: 'Buzz Cut', price: '$25' },
-];
 
 export default function Services() {
   return (
@@ -32,7 +22,7 @@ export default function Services() {
                   {s.note && <span>{s.note}</span>}
                 </span>
                 <span className={styles.leader} aria-hidden="true" />
-                <span className={styles.price}>{s.price}</span>
+                <span className={styles.price}>${s.price}</span>
               </div>
             ))}
           </div>

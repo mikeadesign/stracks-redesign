@@ -1,3 +1,4 @@
+import { services, serviceSchemaName } from './services';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
@@ -48,56 +49,12 @@ const jsonLd = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Barbershop Services',
-    itemListElement: [
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: "Men's Haircut" },
-        price: '35.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: "Men's Haircut with Beard" },
-        price: '50.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: "Senior's Haircut (65+)" },
-        price: '30.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: "Senior's Haircut with Beard (65+)" },
-        price: '40.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Beard Trim' },
-        price: '25.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: "Kid's Haircut (10 & under)" },
-        price: '30.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Bald / Skin Fade' },
-        price: '40.00',
-        priceCurrency: 'USD',
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Buzz Cut' },
-        price: '25.00',
-        priceCurrency: 'USD',
-      },
-    ],
+    itemListElement: services.map((service) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: serviceSchemaName(service) },
+      price: service.price.toFixed(2),
+      priceCurrency: 'USD',
+    })),
   },
   sameAs: ['https://www.facebook.com/stracksbarbershop'],
   award: 'Best of the Fox — Northwest Herald',
