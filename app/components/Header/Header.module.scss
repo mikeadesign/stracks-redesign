@@ -36,8 +36,9 @@
   }
 }
 
-// Only on very small screens does the wordmark drop to "Strack's",
-// matching the footer wordmark
+// Only on very small screens does the wordmark drop to "Strack's" — the bar
+// has to fit the phone number and hamburger beside it. Everywhere else, and
+// in the footer, it's the full "Strack's Barbershop".
 .logoWord {
   @media (max-width: 360px) {
     display: none;

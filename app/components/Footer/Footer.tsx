@@ -6,7 +6,9 @@ export default function Footer() {
     <>
       <footer className={styles.footer}>
         <div className={styles.inner}>
-          <p className={styles.wordmark}>Strack&rsquo;s</p>
+          <p className={styles.wordmark}>
+            Strack<span className={styles.mark}>&rsquo;</span>s Barbershop
+          </p>
           <p className={styles.tagline}>150 S Main St · Algonquin, IL · 847-658-6948</p>
           <nav className={styles.links}>
             <a href="#about">About</a>
