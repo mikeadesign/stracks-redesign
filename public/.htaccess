@@ -1,0 +1,70 @@
+# Strack's Barbershop — Apache config for the static export.
+#
+# Lives in public/ so `next build` copies it into out/ and it ships with the
+# rest of the site. Everything here is server-side; it has no effect on the
+# GitHub Pages preview build (GH Pages ignores .htaccess).
+#
+# NOTE: deploying out/ replaces the .htaccess already on the server, so this
+# file has to carry everything that was in it — including the cPanel block
+# below, copied verbatim from the live server. If cPanel ever rewrites that
+# block (a PHP version change in MultiPHP Manager does this), copy the new
+# version back into this file, or the next deploy will revert it.
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+# ----------------------------------------------------------------------
+# One canonical origin: https://www.stracksbarbershop.com/
+#
+# The old site answered 200 on all four scheme/host combinations, so
+# http/https and www/apex were four crawlable copies of every page. These
+# 301s collapse them onto the origin the <link rel="canonical"> declares.
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Old page URLs -> sections of the single-page site ----------------
+  # The redesign is one page with #about / #services / #hours / #contact
+  # anchors, so every retired .html URL points at the section that absorbed
+  # its content. Targets are absolute (and these rules run before the
+  # scheme/host rules below) so an old http:// or apex link still lands in a
+  # single hop. NE is required — without it Apache escapes "#" to %23 and
+  # the fragment stops working.
+  RewriteRule ^services\.html$ https://www.stracksbarbershop.com/#services [R=301,L,NE]
+  RewriteRule ^location\.html$ https://www.stracksbarbershop.com/#contact [R=301,L,NE]
+  RewriteRule ^contact\.html$  https://www.stracksbarbershop.com/#contact [R=301,L,NE]
+  RewriteRule ^hours\.html$    https://www.stracksbarbershop.com/#hours [R=301,L,NE]
+
+  # rick.html is an orphan — still served, but unlinked and absent from the
+  # sitemap, so anyone reaching it has a stale bookmark or an old third-party
+  # link. No section corresponds to it; send them to the top of the homepage.
+  RewriteRule ^rick\.html$ https://www.stracksbarbershop.com/ [R=301,L]
+
+  # /index.html -> /
+  # Matched against THE_REQUEST (the raw request line) rather than the URL
+  # path: Apache's DirectoryIndex maps "/" to index.html internally, and
+  # matching the path would send that internal mapping back through here in
+  # a loop.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ https://www.stracksbarbershop.com/ [R=301,L]
+
+  # --- Force HTTPS ------------------------------------------------------
+  # X-Forwarded-Proto is checked as well: behind a proxy or load balancer
+  # %{HTTPS} reads "off" even on TLS requests, which would loop forever.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://www.stracksbarbershop.com%{REQUEST_URI} [R=301,L]
+
+  # --- Force www --------------------------------------------------------
+  RewriteCond %{HTTP_HOST} !^www\.stracksbarbershop\.com$ [NC]
+  RewriteRule ^ https://www.stracksbarbershop.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Next's static export writes its own 404 page; point Apache at it so
+# unmapped old URLs land somewhere branded instead of on Apache's default.
+ErrorDocument 404 /404.html

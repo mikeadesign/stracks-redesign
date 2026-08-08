@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Abril_Fatface, Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import HashScroll from './components/HashScroll/HashScroll';
 import './globals.scss';
 
 // Same GA4 property as the live site (stracksbarbershop.com), carried over so
@@ -60,7 +61,10 @@ export default function RootLayout({
       lang="en"
       className={`${abrilFatface.variable} ${playfairDisplay.variable} ${sourceSans3.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <HashScroll />
+        {children}
+      </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
