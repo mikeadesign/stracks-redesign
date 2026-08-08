@@ -68,3 +68,34 @@
 # Next's static export writes its own 404 page; point Apache at it so
 # unmapped old URLs land somewhere branded instead of on Apache's default.
 ErrorDocument 404 /404.html
+
+# ----------------------------------------------------------------------
+# Caching
+#
+# There's no CDN in front of this, so the browser cache is the only cache.
+# Everything under /_next/static carries a content hash in its filename — a
+# changed file is a changed URL — so it can be held for a year and never
+# revalidated. Nothing else can: the HTML is what points at those hashed
+# filenames, so a stale copy of it would keep pointing at the old build.
+# ----------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+  # Images and the favicon are served from stable, unhashed paths, so they get
+  # a week and a revalidation rather than a year.
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800, must-revalidate"
+  </FilesMatch>
+
+  # The entry points. Always revalidate, or a deploy doesn't reach anyone who
+  # has been here before.
+  <FilesMatch "\.(html|xml|txt|json)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Matched on the request path, because <Location*> is server-config only and
+  # is a fatal error inside .htaccess. This comes last on purpose: the hashed
+  # bundle directory also holds fonts and images, and `Header set` overwrites,
+  # so the rule that runs last is the one those files end up with.
+  SetEnvIf Request_URI "^/_next/static/" HASHED_ASSET
+  Header set Cache-Control "public, max-age=31536000, immutable" env=HASHED_ASSET
+</IfModule>
