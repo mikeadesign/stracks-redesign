@@ -14,6 +14,11 @@ const jsonLd = {
   description:
     "Voted Best of the Fox — a classic barbershop in Algonquin, IL offering men's haircuts, beard trims, fades, and old-school straight-razor service.",
   url: 'https://www.stracksbarbershop.com',
+  // Reuses the Open Graph share image rather than a separate asset — same
+  // storefront photo, already the site's one "official" representative
+  // picture. Google lists `image` as a recommended LocalBusiness field for
+  // Knowledge Panel / rich-result matching; it was missing entirely before.
+  image: 'https://www.stracksbarbershop.com/images/og.jpg',
   telephone: '+18476586948',
   email: 'stracksbarbershop@yahoo.com',
   priceRange: '$$',
@@ -32,6 +37,8 @@ const jsonLd = {
     latitude: 42.166286,
     longitude: -88.295934,
   },
+  // Same URL the "Address" contact-list link uses in Hours.tsx.
+  hasMap: 'https://maps.google.com/?q=150+S+Main+St+Algonquin+IL+60102',
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
