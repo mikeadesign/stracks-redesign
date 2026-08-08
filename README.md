@@ -1,8 +1,10 @@
 # Strack's Barbershop
 
+**Live** at [stracksbarbershop.com](https://www.stracksbarbershop.com/).
+
 The site for Strack's Barbershop, 150 S Main St, Algonquin IL — a single-page
 Next.js app exported to static HTML and hosted on the shop's existing cPanel
-Apache account at [stracksbarbershop.com](https://www.stracksbarbershop.com/).
+Apache account.
 
 Next 16 (App Router) · React 19 · Sass modules · `output: "export"`
 
@@ -19,11 +21,12 @@ npm run dev
 `npm run lint` reports two pre-existing errors in `Year.tsx` and `Schedule.tsx`
 (`setState` inside an effect). They predate the current work and are known.
 
-## Deploying
+## Redeploying
 
-There is no CI deploy to production — it's a manual upload to cPanel. The
-GitHub Actions workflow only publishes a **client preview** to GitHub Pages on
-every push to `master`; it never touches the live site.
+There is no CI deploy to production — it's a manual upload to cPanel, same as
+the initial launch. The GitHub Actions workflow only publishes a **client
+preview** to GitHub Pages on every push to `master`; it never touches the live
+site, so pushing here doesn't ship anything by itself.
 
 1. **Build.**
 
@@ -59,8 +62,11 @@ every push to `master`; it never touches the live site.
    Then load `https://www.stracksbarbershop.com/#services` in a browser and
    confirm it lands on the section rather than the top of the page.
 
-5. **Submit the sitemap** in Search Console (`/sitemap.xml`) after the first
-   deploy.
+This was all done for the initial launch — sitemap submitted in Search Console,
+redirects confirmed live (every old page and every scheme/host combination
+301s to `https://www.stracksbarbershop.com/`). None of it needs repeating for
+routine content updates; it's here for whoever does the next deploy after this
+one, or the next hosting migration.
 
 ### The `.htaccess` is hand-maintained — read this before editing it
 
@@ -89,6 +95,17 @@ server-config only and are a **fatal error** inside `.htaccess` — match on the
 request path with `SetEnvIf` instead. And the `[NE]` flag on the redirect rules
 is what stops Apache escaping `#` to `%23`.
 
+Known, accepted gap: an old-page link with a query string —
+`services.html?ref=fb` — redirects to `/#services?ref=fb`, not `/?ref=fb#services`.
+mod_rewrite auto-appends the original query string when the substitution has
+no `?` of its own, and the substitution here already has a `#`, so it lands
+after the fragment where the browser treats it as part of the hash rather than
+an actual query param — `HashScroll` then can't find an element literally
+named `services?ref=fb` and the page doesn't scroll. Confirmed live, not just
+theoretical. Left as-is: no tracking-tagged links to the old pages are known
+to exist, so this is very unlikely to matter, and fixing it means duplicating
+each redirect into a query-string and no-query-string pair.
+
 ## Things that will surprise you
 
 **Linking to a section from another page needs a full page load.** Arrival on
@@ -113,6 +130,12 @@ committed.
 **`next/image` doesn't apply `basePath` when images are unoptimized**, which is
 why public-folder paths are prefixed manually with `BASE_PATH` from
 [`app/basePath.ts`](app/basePath.ts). Keep it in sync with `next.config.ts`.
+
+**The favicon is generated too, not a static binary someone dropped in.**
+[`scripts/favicon-source.svg`](scripts/favicon-source.svg) is the editable
+source; `npm run build-favicon` rebuilds `app/favicon.ico` from it. Its
+diagonal stripe is deliberately phased to match the hero ribbon's angle and
+corner colors — see the comments in the SVG before changing the pattern.
 
 **Analytics** is GA4 `G-XZD2N6BFDS`, the same property as the old site so the
 history stays continuous. The old UA property on the live site is dead (Google
