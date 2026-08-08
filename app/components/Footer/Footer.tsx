@@ -21,6 +21,13 @@ export default function Footer() {
             >
               Facebook
             </a>
+            <a
+              href="https://www.yelp.com/biz/stracks-barber-shop-algonquin"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Yelp
+            </a>
           </nav>
           <p className={styles.copy}>
             &copy; <Year />{' '}Strack&rsquo;s Barbershop. Cash only.

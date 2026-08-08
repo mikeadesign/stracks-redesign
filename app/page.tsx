@@ -56,7 +56,10 @@ const jsonLd = {
       priceCurrency: 'USD',
     })),
   },
-  sameAs: ['https://www.facebook.com/stracksbarbershop'],
+  sameAs: [
+    'https://www.facebook.com/stracksbarbershop',
+    'https://www.yelp.com/biz/stracks-barber-shop-algonquin',
+  ],
   award: 'Best of the Fox — Northwest Herald',
 };
 
