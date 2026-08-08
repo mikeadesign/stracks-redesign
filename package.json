@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "optimize-images": "node scripts/optimize-images.mjs"
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "build-favicon": "node scripts/build-favicon.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

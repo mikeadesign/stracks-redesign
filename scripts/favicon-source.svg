@@ -1,0 +1,43 @@
+<!--
+  Source art for app/favicon.ico — edit this, then run `npm run build-favicon`.
+
+  A diagonal red/cream/blue candy stripe, same palette and angle as the
+  barber-stripe mixin in app/_tokens.scss (hero ribbon, mobile-menu divider) —
+  bottom-left to top-right. Simplified for icon scale: the mixin's 6px band
+  across a 120px ribbon is four repeats and reads fine at that size, but the
+  same ratio at 32px anti-aliases into mush. This uses one wide band per color
+  so it stays a bold, legible diagonal even at 16px, rather than a busy weave.
+
+  The rotation is +45, not the mixin's -45: CSS repeating-linear-gradient's
+  angle is the axis colors run along, so its bands (perpendicular to that
+  axis) end up bottom-left-to-top-right at -45deg. SVG patternTransform
+  rotates the tile itself — starting from vertical bars, +45 here lands on
+  the same bottom-left-to-top-right diagonal. Confirmed against the rendered
+  hero ribbon, not derived on paper — the two conventions are easy to mirror.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="round">
+      <rect x="0" y="0" width="32" height="32" rx="7" ry="7"/>
+    </clipPath>
+    <!-- translate(14,0): picks both which color lands at each rounded
+         corner and how deep into that band it sits. Red and blue are a
+         half-period (12 units) apart in the tile, and the two corners this
+         diagonal touches are almost exactly that same distance apart along
+         the pattern's own axis — so one phase offset puts a full band, not
+         a sliver, at both: solid blue top-left, solid red bottom-right, the
+         same swap you'd get shifting the mixin itself by half a period.
+         Found by rendering the full 0-24 range and comparing corners, not
+         derived — the margin from each boundary isn't obvious on paper. -->
+    <pattern id="stripes" width="24" height="24" patternTransform="rotate(45) translate(14,0)" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#BE1E2D"/>
+      <rect x="6" width="6" height="24" fill="#F0E8D5"/>
+      <rect x="12" width="6" height="24" fill="#34558B"/>
+      <rect x="18" width="6" height="24" fill="#F0E8D5"/>
+    </pattern>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect x="0" y="0" width="32" height="32" fill="#1C0F07"/>
+    <rect x="0" y="0" width="32" height="32" fill="url(#stripes)"/>
+  </g>
+</svg>
