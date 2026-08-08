@@ -30,7 +30,7 @@ export const photos: GalleryPhoto[] = [
   },
   {
     src: `${BASE_PATH}/images/home/3.webp`,
-    alt: "Antique brass cash register with the shop's engraved drawer",
+    alt: 'Antique brass cash register with "Michigan" engraved on the drawer',
     width: 618,
     height: 412,
     focus: '60%',
