@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useClientValue } from '../../useClientValue';
 import styles from './Hours.module.scss';
 
 const schedule = [
@@ -15,17 +15,17 @@ const schedule = [
 
 export default function Schedule() {
   // Computed after hydration so the highlight is the visitor's "today" in the
-  // shop's timezone — a server render would freeze it at build time
-  const [todayName, setTodayName] = useState<string | null>(null);
-
-  useEffect(() => {
-    setTodayName(
+  // shop's timezone — a server render would freeze it at build time. Until
+  // then it's null, so the static HTML highlights no row at all rather than
+  // the wrong one.
+  const todayName = useClientValue(
+    () =>
       new Intl.DateTimeFormat('en-US', {
         weekday: 'long',
         timeZone: 'America/Chicago',
-      }).format(new Date())
-    );
-  }, []);
+      }).format(new Date()),
+    null as string | null
+  );
 
   return (
     <div className={styles.schedule}>

@@ -76,7 +76,16 @@ export default function RootLayout({
       lang="en"
       className={`${abrilFatface.variable} ${playfairDisplay.variable} ${sourceSans3.variable}`}
     >
-      <body>
+      {/*
+        suppressHydrationWarning is here for browser extensions, not for
+        anything this app renders. Extensions stamp attributes onto <body>
+        before React loads — ColorZilla's cz-shortcut-listen is the usual
+        culprit — and React reports the difference as a hydration mismatch on
+        every page load. It suppresses only this element's own attributes, one
+        level deep, so a real mismatch anywhere in the tree below still
+        reports normally.
+      */}
+      <body suppressHydrationWarning>
         <HashScroll />
         {children}
       </body>
