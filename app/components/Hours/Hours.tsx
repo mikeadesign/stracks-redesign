@@ -75,6 +75,23 @@ export default function Hours() {
                 </a>
               </div>
             </li>
+            <li className={styles.contactItem}>
+              <div className={styles.contactIcon} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2Z" />
+                </svg>
+              </div>
+              <div className={styles.contactText}>
+                <strong>Yelp</strong>
+                <a
+                  href="https://www.yelp.com/biz/stracks-barber-shop-algonquin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Read reviews
+                </a>
+              </div>
+            </li>
           </ul>
           <div className={styles.mapWrap}>
             <iframe
