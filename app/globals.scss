@@ -9,8 +9,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: calc(#{g.$header-height} + #{g.$space-sm}); // header + breathing room on anchor jumps
+
+  // Smooth scrolling is opt-in via a class that <HashScroll> adds after the
+  // page has settled. Left on `html` unconditionally it breaks arrivals on
+  // /#services and friends — the URLs the retired .html pages redirect to.
+  // See app/components/HashScroll/HashScroll.tsx.
+  &.smoothScroll {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -56,7 +63,7 @@ img {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-  html {
+  html.smoothScroll {
     scroll-behavior: auto;
   }
 }
