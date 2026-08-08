@@ -1,16 +1,36 @@
 @use '../../_tokens' as g;
 
+// $brown-deep, not $ink: the two-field rule allows espresso or parchment and
+// nothing else ($ink sat at 1.08:1 against the Services espresso below).
+//
+// The padding is what makes the mat a mat. Espresso has to close around the
+// parchment on all four sides — a light sheet running off the viewport edge
+// reads as a stray margin, not as mounting board. Fluid rather than fixed so
+// the frame stays proportional instead of thinning out on wide screens.
+//
+// Trade-off worth knowing: the sheet's bottom edge used to sit flush with the
+// section end and carry the Gallery/Services boundary at 14:1. Framing it
+// hands that job to the padding below instead, so this section and Services
+// now meet espresso-on-espresso. That's fine — Services opens with its own
+// full h2, and 4rem of dark space reads as a section break — but it means
+// this padding is structural, not decorative. Don't trim it.
 .gallery {
-  background: g.$ink;
+  background: g.$brown-deep;
   overflow: hidden;
+  padding-inline: clamp(g.$space-sm, 4vw, g.$space-lg);
+  // Fluid so the frame doesn't cost a phone 64px of scroll on a section that
+  // already runs past one screen; 2rem still reads as a clear section break.
+  padding-bottom: clamp(g.$space-md, 6vw, g.$space-lg);
 }
 
 // A light proof-point caption, not a full section intro — smaller than
 // About/Services/Hours' h2s so the photos stay the visual lead.
+// The section's padding-inline now sets the horizontal inset for both the
+// heading and the sheet, so they share one edge instead of running on two
+// separate width systems.
 .heading {
   max-width: 1100px;
   margin-inline: auto;
-  padding-inline: g.$space-md;
   padding-top: g.$space-lg;
   padding-bottom: g.$space-md;
   font-family: var(--font-heading);
@@ -26,39 +46,101 @@
   // the other 5 keep 1 each — stays a single row, no wrap, no phantom cell.
   grid-template-columns: repeat(7, 1fr);
 
+  // Parchment showing through the gaps, the way a print is mounted on board.
+  // Not a drawn line — the photos sit on the light field and the field is what
+  // you see between them.
+  //
+  // It has to be a LIGHT mat. Untreated, these six frames meet at 1.04–2.72:1,
+  // every seam under the 3:1 floor for a perceivable boundary, and the strip
+  // reads as one image. A dark gutter doesn't fix that: espresso sits at L .011
+  // against photo edges spanning L .020–.083, so it measures 1.15:1 against the
+  // darker frames — more space, still no edge. Parchment (L .79) clears 8–11:1
+  // against every frame in the set, and it's one of the two fields the system
+  // already has rather than a new accent colour.
+  gap: 8px;
+  padding: 8px;
+  background: g.$cream;
+
+  // Equal rows, so every cell in the row shares one height and the sheet's
+  // bottom edge comes out straight. Each cell's aspect-ratio establishes what
+  // that height should be; the row then holds them all to it. Overridden to
+  // auto at $bp-sm, where the rows are deliberately different heights.
+  grid-auto-rows: 1fr;
+
+  // 4 tracks, not 3. Six photos with one double-width lead need a span total
+  // that divides evenly, and 3 columns can't give one: 2 + 5 singles = 7,
+  // which leaves two dead cells across two rows. Letting the last photo span
+  // 2 as well makes 8, which fills 4×2 exactly — and the two wide frames land
+  // top-left and bottom-right, so the grid reads on a diagonal rather than as
+  // a uniform tile field.
   @media (max-width: g.$bp-lg) {
-    // Tighter viewports don't have room for a graceful two-tier strip
-    // without either awkward wrapping or an empty cell — keep it uniform.
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+
+    // The mat narrows as the cells do, so it stays a mat and doesn't start
+    // eating the photos on a 375px screen.
+    gap: 6px;
+    padding: 6px;
   }
 
+  // Same 8-unit trick at 2 columns: a full-width opener, a 2×2 block, a
+  // full-width closer. Rows are auto here because those wide frames are
+  // meant to be shorter than the square ones — 1fr would flatten them all
+  // to one height and undo the hierarchy.
   @media (max-width: g.$bp-sm) {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-auto-rows: auto;
   }
 }
 
+// A real <button>, so the section is reachable by keyboard and the tap target
+// is announced. Reset the UA chrome; every visual property below is ours.
 .photo {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+  display: block;
   position: relative;
+  // aspect-ratio establishes the row height; width/height 100% then pin every
+  // cell to its grid area. Both halves are needed. Without the height, a cell
+  // keeps its own ratio-derived height and the lead sits 0.7px proud of the
+  // rest. With the height but not the width, the ratio starts driving the
+  // width instead — each single cell renders 4px wider than its track, eating
+  // half of the gutter beside it and leaving the mat 8px on one edge and 4px
+  // on the other.
   aspect-ratio: 3 / 4;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 
-  // The lead photo (the chairs) spans 2 tracks. Its aspect-ratio is 3:2
-  // instead of 3:4 so its natural height still matches the row: at 2x the
-  // column width, 3:2 resolves to the same height as a single 3:4 column.
+  @media (max-width: g.$bp-lg) {
+    aspect-ratio: 1 / 1;
+  }
+
+  // The lead photo (the chairs) spans 2 tracks at every size, so the crop
+  // opens up instead of repeating a portrait frame at double width. It used
+  // to collapse to a single cell below $bp-lg, which handed phones — most of
+  // the traffic — the one layout with no hierarchy in it at all.
   &:first-child {
     grid-column: span 2;
     aspect-ratio: 3 / 2;
 
     @media (max-width: g.$bp-lg) {
-      grid-column: span 1;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 2 / 1;
     }
   }
 
-  @media (max-width: g.$bp-lg) {
-    aspect-ratio: 1 / 1;
+  // The closer spans 2 only in the stacked layouts, where it's what makes the
+  // span total divide evenly. At desktop the six photos already fill a single
+  // row of 7 tracks and a second wide frame would break it.
+  &:last-child {
+    @media (max-width: g.$bp-lg) {
+      grid-column: span 2;
+      aspect-ratio: 2 / 1;
+    }
   }
 
   img {
@@ -69,12 +151,36 @@
     // Full color on every device — the old grayscale-until-hover treatment
     // never paid off for touch, which is most first-time-visitor traffic.
     filter: contrast(1.05);
-    transition: transform 0.5s ease;
   }
 
-  // Harmless bonus motion for mouse users — not required to see the photo,
-  // since the baseline (full color, no overlay) is now identical everywhere.
-  &:hover img {
-    transform: scale(1.06);
+  // There IS something to open now, so the affordance is earned rather than
+  // decorative — the grid crops 34–51% of every frame and the viewer shows all
+  // of it. Kept quiet: the mat brightens, the photo doesn't move. A scale on
+  // hover would push the image under its own neighbour's gutter.
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+  }
+
+  // A border on an overlay, not an inset box-shadow — the flat-first rule
+  // rules out shadows in either direction.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid g.$gold;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  // The gold inset above is the hover cue; focus needs to read on its own
+  // terms for anyone tabbing, so it also gets a ring outside the frame.
+  &:focus-visible {
+    outline: 2px solid g.$gold;
+    outline-offset: 2px;
+    // Above the mat's stacking so the ring isn't clipped by a neighbour.
+    z-index: 1;
   }
 }

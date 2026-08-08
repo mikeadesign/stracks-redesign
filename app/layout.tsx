@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import { Abril_Fatface, Playfair_Display, Source_Sans_3 } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.scss';
+
+// Same GA4 property as the live site (stracksbarbershop.com), carried over so
+// launch doesn't break history on the property. The old UA-104086898-1 ID
+// also present on the live site is Universal Analytics — GA stopped
+// collecting on UA properties in July 2023, so it's dead weight and isn't
+// ported. No GTM container on the live site, just a direct gtag.js install.
+const GA_MEASUREMENT_ID = 'G-XZD2N6BFDS';
 
 const abrilFatface = Abril_Fatface({
   weight: '400',
@@ -53,6 +61,7 @@ export default function RootLayout({
       className={`${abrilFatface.variable} ${playfairDisplay.variable} ${sourceSans3.variable}`}
     >
       <body>{children}</body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }

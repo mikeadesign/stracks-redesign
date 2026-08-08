@@ -1,0 +1,169 @@
+@use '../../_tokens' as g;
+
+// The photo taken down off the wall and held up: the same parchment mounting
+// the grid uses, on an espresso field, with nothing else in the frame.
+.dialog {
+  // Reset the UA dialog box so the backdrop is the only surface.
+  max-width: 100vw;
+  max-height: 100dvh;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: g.$space-md g.$space-sm;
+  border: 0;
+  background: transparent;
+  // Never hidden: if a viewport is short enough that the sizing below still
+  // doesn't fit, the controls have to stay reachable by scrolling rather than
+  // being clipped away with no way back to them.
+  overflow: auto;
+
+  // No backdrop-filter here. The header's blur is functional and deliberately
+  // unique; repeating it would spend a one-off twice.
+  &::backdrop {
+    background: rgba(g.$brown-deep, 0.94);
+  }
+
+  &[open] {
+    display: grid;
+    place-items: center;
+    animation: lightboxIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+// Entrance only — the globals.scss reduced-motion rule cuts the duration to
+// 0.01ms, which lands on the final frame rather than hiding anything. Nothing
+// here is gated behind the animation completing.
+@keyframes lightboxIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.frame {
+  margin: 0;
+  padding: g.$space-sm;
+  background: g.$cream;
+  border-radius: 2px;
+  // The cap is the image's intrinsic width plus the mat, so the photo itself
+  // lands at exactly 1:1 rather than being shrunk by the mounting.
+  max-width: calc(var(--lightbox-width) + 2 * #{g.$space-sm});
+  outline: none;
+  // Hug the image, so when a short viewport shrinks the photo the mat comes
+  // in with it instead of leaving parchment margins either side.
+  width: fit-content;
+}
+
+// Both max dimensions with auto width/height: a replaced element scales down
+// inside that box on its own and keeps its aspect ratio. The height budget is
+// the viewport minus the dialog padding, the mat, the caption and the control
+// row — on a landscape phone the photo gives up height so the buttons stay on
+// screen, which is the case that was previously clipping them away entirely.
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 12rem);
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+.caption {
+  flex-shrink: 0;
+  padding-top: g.$space-sm;
+  text-align: center;
+}
+
+.captionText {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  // Press black on parchment, not the muted brown — this is the only copy in
+  // the view and the audience skews 50–70+.
+  color: g.$ink;
+  text-wrap: pretty;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: g.$space-sm;
+  margin-top: g.$space-xs;
+}
+
+// 44px minimum on every control, and the pair sits under the photo rather than
+// floating over its edges — thumb-reachable on a phone, and unambiguous for
+// someone who doesn't assume an invisible tap zone at the screen edge.
+.navButton {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 1px solid rgba(g.$gold, 0.45);
+  border-radius: 2px;
+  color: g.$ink;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    background: rgba(g.$gold, 0.14);
+    border-color: g.$gold;
+  }
+
+  &:focus-visible {
+    outline: 2px solid g.$gold;
+    outline-offset: 2px;
+  }
+}
+
+.counter {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: g.$smoke;
+  min-width: 6ch;
+}
+
+.close {
+  position: fixed;
+  top: g.$space-sm;
+  right: g.$space-sm;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 1px solid rgba(g.$cream, 0.35);
+  border-radius: 2px;
+  color: g.$cream;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    color: g.$gold;
+    border-color: g.$gold;
+  }
+
+  &:focus-visible {
+    outline: 2px solid g.$gold;
+    outline-offset: 2px;
+  }
+}
