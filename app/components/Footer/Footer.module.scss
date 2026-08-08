@@ -24,6 +24,21 @@
   color: g.$cream;
   line-height: 1;
   letter-spacing: -0.01em;
+  text-align: center;
+
+  // At the full name, 2rem needs ~293px — a hair more than a 320px screen
+  // leaves after the inner padding, and the lockup breaks across two lines.
+  // Shrink just enough to keep it on one.
+  @media (max-width: 380px) {
+    font-size: 1.7rem;
+  }
+}
+
+// The shop's stamp, same as the header wordmark — the two bookend the page.
+// Red fires nowhere else down here, so it stays within the signal-colour
+// budget in DESIGN.md.
+.mark {
+  color: g.$red;
 }
 
 .tagline {
