@@ -48,6 +48,21 @@ export const metadata: Metadata = {
     siteName: "Strack's Barbershop",
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/images/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: "The storefront of Strack's Barbershop at 150 S Main St, Algonquin — barber pole, flag, and the shop name lettered on the door glass.",
+      },
+    ],
+  },
+  // Facebook is where this link actually gets shared, but Slack, Discord and
+  // iMessage read the twitter tags in preference to OG. Next derives the rest
+  // of them from openGraph; this just upgrades the crop from a small square
+  // thumbnail to the full-width card.
+  twitter: {
+    card: 'summary_large_image',
   },
 };
 

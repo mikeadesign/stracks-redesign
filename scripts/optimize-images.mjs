@@ -20,6 +20,20 @@ const targets = [
   { src: 'public/images/vendor/NWH-2019-BOF-Logo.jpg', out: 'public/images/vendor/NWH-2019-BOF-Logo.webp', width: 240, quality: 82 },
   // stracks-barbershop-sign-2024.gif intentionally excluded: it's a flat-color
   // logo with transparency — GIF's palette compression already beats lossy WebP here.
+
+  // Social share card. JPEG, not WebP: it has to survive every scraper that
+  // might fetch it, and 1200x630 is the size Facebook and the rest crop to.
+  // No lettering baked in — the display face (Abril Fatface) is loaded from
+  // Google Fonts at runtime and isn't installed locally, so any text drawn
+  // here would render in a fallback face and read as off-brand.
+  {
+    src: 'source-images/shop-outside.jpg',
+    out: 'public/images/og.jpg',
+    width: 1200,
+    height: 630,
+    quality: 82,
+    format: 'jpeg',
+  },
 ];
 
 const { statSync, existsSync } = await import('node:fs');
@@ -35,10 +49,18 @@ for (const t of targets) {
     continue;
   }
 
-  await sharp(srcPath)
-    .resize({ width: t.width, withoutEnlargement: true })
-    .webp({ quality: t.quality })
-    .toFile(outPath);
+  // A target with a height is a fixed-aspect crop (the share card); one
+  // without just scales to a max width.
+  const pipeline = sharp(srcPath).resize(
+    t.height
+      ? { width: t.width, height: t.height, fit: 'cover', position: 'centre' }
+      : { width: t.width, withoutEnlargement: true }
+  );
+
+  await (t.format === 'jpeg'
+    ? pipeline.jpeg({ quality: t.quality, mozjpeg: true })
+    : pipeline.webp({ quality: t.quality })
+  ).toFile(outPath);
 
   const before = statSync(srcPath).size;
   const after = statSync(outPath).size;

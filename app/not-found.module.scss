@@ -1,0 +1,114 @@
+@use 'tokens' as g;
+
+.wrap {
+  min-height: 100dvh;
+  background-color: g.$brown-deep;
+  color: g.$cream;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: g.$space-lg g.$space-md;
+}
+
+.inner {
+  max-width: 34rem;
+  text-align: center;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+// The shop's stamp, same as the header and footer wordmarks.
+.mark {
+  color: g.$red;
+}
+
+.stripe {
+  width: 120px; // 5 full periods of the mixin's 24px stripe repeat
+  height: 8px;
+  margin: g.$space-md auto;
+  @include g.barber-stripe;
+  box-shadow: 0 1px 6px rgba(g.$brown-deep, 0.45);
+}
+
+.headline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: g.$space-sm;
+}
+
+.body {
+  color: g.$cream-secondary;
+  max-width: 42ch;
+  margin: 0 auto g.$space-md;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: g.$space-sm;
+  margin-bottom: g.$space-lg;
+}
+
+.primary {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background-color: g.$gold;
+  color: g.$brown-deep;
+  padding: 0.9rem 1.75rem; // ≥44px touch target
+  border-radius: 2px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: color-mix(in srgb, g.$gold 88%, g.$brown-deep);
+  }
+}
+
+.secondary {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: g.$cream-secondary;
+  padding: 0.75rem 0.5rem; // ≥44px touch target
+  border-bottom: 1px solid rgba(g.$gold, 0.4);
+  transition: color 0.2s;
+
+  &:hover {
+    color: g.$gold;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: g.$space-md;
+  border-top: 1px solid rgba(g.$cream, 0.1);
+  padding-top: g.$space-md;
+
+  a {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: g.$cream-secondary;
+    padding: 0.75rem 0.25rem; // ≥44px touch target
+    transition: color 0.2s;
+
+    &:hover {
+      color: g.$gold;
+    }
+  }
+}
