@@ -92,6 +92,25 @@ export default function Hours() {
                 </a>
               </div>
             </li>
+            <li className={styles.contactItem}>
+              <div className={styles.contactIcon} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M17.5 6.5h.01" />
+                </svg>
+              </div>
+              <div className={styles.contactText}>
+                <strong>Instagram</strong>
+                <a
+                  href="https://www.instagram.com/stracksbarbershop/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @stracksbarbershop
+                </a>
+              </div>
+            </li>
           </ul>
           <div className={styles.mapWrap}>
             <iframe
