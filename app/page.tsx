@@ -9,7 +9,7 @@ import Footer from './components/Footer/Footer';
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'BarberShop',
+  '@type': 'HairSalon',
   name: "Strack's Barbershop",
   description:
     "Voted Best of the Fox — a classic barbershop in Algonquin, IL offering men's haircuts, beard trims, fades, and old-school straight-razor service.",
