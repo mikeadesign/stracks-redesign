@@ -28,6 +28,13 @@ export default function Footer() {
             >
               Yelp
             </a>
+            <a
+              href="https://www.instagram.com/stracksbarbershop/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </a>
           </nav>
           <p className={styles.copy}>
             &copy; <Year />{' '}Strack&rsquo;s Barbershop. Cash only.

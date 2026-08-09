@@ -9,7 +9,7 @@ import Footer from './components/Footer/Footer';
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'HairSalon',
+  '@type': 'BarberShop',
   name: "Strack's Barbershop",
   description:
     "Voted Best of the Fox — a classic barbershop in Algonquin, IL offering men's haircuts, beard trims, fades, and old-school straight-razor service.",
@@ -19,6 +19,8 @@ const jsonLd = {
   // picture. Google lists `image` as a recommended LocalBusiness field for
   // Knowledge Panel / rich-result matching; it was missing entirely before.
   image: 'https://www.stracksbarbershop.com/images/og.jpg',
+  // Same animated sign badge used in the About section (About.tsx).
+  logo: 'https://www.stracksbarbershop.com/images/stracks-barbershop-sign-2024.gif',
   telephone: '+18476586948',
   email: 'stracksbarbershop@yahoo.com',
   priceRange: '$$',
@@ -66,6 +68,7 @@ const jsonLd = {
   sameAs: [
     'https://www.facebook.com/stracksbarbershop',
     'https://www.yelp.com/biz/stracks-barber-shop-algonquin',
+    'https://www.instagram.com/stracksbarbershop/',
   ],
   award: 'Best of the Fox — Northwest Herald',
 };
