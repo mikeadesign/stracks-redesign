@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Abril_Fatface, Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import HashScroll from './components/HashScroll/HashScroll';
+import ClickTracking from './components/ClickTracking/ClickTracking';
 import './globals.scss';
 
 // Same GA4 property as the live site (stracksbarbershop.com), carried over so
@@ -87,6 +88,7 @@ export default function RootLayout({
       */}
       <body suppressHydrationWarning>
         <HashScroll />
+        <ClickTracking />
         {children}
       </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
