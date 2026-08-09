@@ -10,6 +10,10 @@ import Footer from './components/Footer/Footer';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'HairSalon',
+  // schema.org has no dedicated "barbershop" type — HairSalon is the closest
+  // real subtype. This points at Wikidata's distinct "barbershop" entity
+  // (explicitly different from a hair salon) for a more specific signal.
+  additionalType: 'https://www.wikidata.org/wiki/Q21980641',
   name: "Strack's Barbershop",
   description:
     "Voted Best of the Fox — a classic barbershop in Algonquin, IL offering men's haircuts, beard trims, fades, and old-school straight-razor service.",
