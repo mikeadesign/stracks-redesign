@@ -65,6 +65,17 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+  // The GitHub Pages copy (mikeadesign.github.io/stracks-redesign) is a public
+  // build artifact, not the live site, and has no way to control indexing
+  // after the fact the way Search Console does for the real domain. It's left
+  // crawlable rather than blocked via robots.txt so Googlebot can actually see
+  // this tag — a robots.txt disallow would hide the noindex signal along with
+  // everything else and risk the URL getting indexed anyway with no
+  // description. The canonical tag above already points at the real domain
+  // regardless of host; this is belt-and-suspenders for the same goal.
+  ...(process.env.GITHUB_PAGES === 'true' && {
+    robots: { index: false, follow: false },
+  }),
 };
 
 export default function RootLayout({
