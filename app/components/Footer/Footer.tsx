@@ -10,7 +10,7 @@ export default function Footer() {
             Strack<span className={styles.mark}>&rsquo;</span>s Barbershop
           </p>
           <p className={styles.tagline}>150 S Main St · Algonquin, IL · 847-658-6948</p>
-          <nav className={styles.links}>
+          <nav className={styles.links} aria-label="Footer">
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#hours">Hours &amp; Info</a>

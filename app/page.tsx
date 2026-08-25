@@ -84,8 +84,16 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/*
+        First focusable thing in the document — HashScroll and ClickTracking
+        both render null, so nothing precedes it. Lets a keyboard visitor past
+        the header's wordmark, two nav links, phone button and hamburger, which
+        otherwise sit in front of the content on every arrival, including the
+        /#services and /#hours redirect targets from the retired .html pages.
+      */}
+      <a href="#main" className="skipLink">Skip to content</a>
       <Header />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <About />
         <Gallery />

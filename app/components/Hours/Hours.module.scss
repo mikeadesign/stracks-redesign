@@ -23,7 +23,7 @@
 .block {
   h2 {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-size: g.$text-headline;
     font-weight: 700;
     color: g.$ink;
     margin-bottom: g.$space-md;
@@ -41,7 +41,7 @@
   align-items: center;
   padding: 0.75rem 0;
   border-bottom: 1px solid rgba(g.$ink, 0.1);
-  font-size: 0.95rem;
+  font-size: g.$text-body;
 
   &.closed {
     .dayHours {
@@ -85,7 +85,7 @@
 
 .note {
   margin-top: g.$space-sm;
-  font-size: 0.8rem;
+  font-size: g.$text-small;
   color: g.$smoke;
   font-style: italic;
   line-height: 1.5;
@@ -126,9 +126,9 @@
   strong {
     display: block;
     font-family: var(--font-body);
-    font-size: 0.72rem;
+    font-size: g.$text-label;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: g.$smoke;
     margin-bottom: 0.2rem;
@@ -136,9 +136,9 @@
 
   a, span {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: g.$text-lead;
     color: g.$ink;
-    line-height: 1.3;
+    line-height: 1.35;
     overflow-wrap: anywhere; // long email address on narrow screens
 
     &:hover {

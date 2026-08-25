@@ -1,6 +1,7 @@
 @use '../../_tokens' as g;
 
 .footer {
+  --focus-ring: #{g.$gold}; // espresso field
   background: g.$brown-deep;
   color: g.$cream-secondary;
   padding-block: g.$space-lg;
@@ -20,7 +21,7 @@
 
 .wordmark {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: g.$text-wordmark-lg;
   color: g.$cream;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -30,7 +31,7 @@
   // leaves after the inner padding, and the lockup breaks across two lines.
   // Shrink just enough to keep it on one.
   @media (max-width: 380px) {
-    font-size: 1.7rem;
+    font-size: g.$text-wordmark-sm;
   }
 }
 
@@ -42,7 +43,7 @@
 }
 
 .tagline {
-  font-size: 0.8rem;
+  font-size: g.$text-label;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: g.$gold;
@@ -57,8 +58,8 @@
   margin-bottom: g.$space-sm;
 
   a {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    font-size: g.$text-small;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: g.$cream-secondary;
     padding: 0.75rem 0.25rem; // 44px touch target
@@ -72,7 +73,7 @@
 }
 
 .copy {
-  font-size: 0.75rem;
+  font-size: g.$text-small;
   border-top: 1px solid rgba(g.$cream, 0.1);
   padding-top: g.$space-sm;
   width: 100%;
