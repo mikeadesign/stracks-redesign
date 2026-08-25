@@ -2,6 +2,7 @@
 @use 'sass:color';
 
 .header {
+  --focus-ring: #{g.$gold}; // espresso field
   position: fixed;
   top: 0;
   left: 0;
@@ -26,7 +27,7 @@
 
 .logo {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: g.$text-wordmark;
   color: g.$cream;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -50,16 +51,20 @@
   align-items: center;
   gap: g.$space-md;
 
-  @media (max-width: g.$bp-sm) {
+  // Just above $bp-sm is the tightest the bar ever gets: the full wordmark, two
+  // nav links and the phone button all still render, and the phone button grew
+  // when it went to $text-body. Measured at 602px the wordmark and the nav met
+  // at a 0px gap. Halving the nav gap through $bp-md buys back 32px.
+  @media (max-width: g.$bp-md) {
     gap: g.$space-sm;
   }
 }
 
 .navLink {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: g.$text-small;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: g.$cream-secondary;
   transition: color 0.2s;
@@ -91,6 +96,16 @@
     }
   }
 
+  // Between $bp-sm and $bp-md the bar is carrying the full wordmark, both
+  // links and the phone button at once, and there is no room left over. The
+  // links hold at the label floor through that band and take the full
+  // $text-small above it — the phone button keeps $text-body either way,
+  // because it's the one thing here anyone is trying to hit.
+  @media (max-width: g.$bp-md) {
+    font-size: g.$text-label;
+    letter-spacing: 0.08em;
+  }
+
   // Inline links collapse on small screens — the hamburger panel takes over
   @media (max-width: g.$bp-sm) {
     display: none;
@@ -99,7 +114,7 @@
 
 .phone {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: g.$text-body;
   font-weight: 700;
   color: g.$cream;
   background: g.$red;
@@ -200,7 +215,7 @@
 
 .panelLink {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: g.$text-wordmark-lg;
   color: g.$cream;
   padding: 0.5rem 1rem; // generous touch target
   transition: color 0.2s;
@@ -224,7 +239,7 @@
 
 .panelPhone {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: g.$text-lead;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -232,11 +247,12 @@
   background: g.$gold;
   padding: 0.9rem 2rem;
   border-radius: 2px;
+  @include g.inset-focus-ring;
 }
 
 .panelNote {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: g.$text-small;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: g.$cream-secondary;

@@ -34,7 +34,7 @@
   padding-top: g.$space-lg;
   padding-bottom: g.$space-md;
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  font-size: g.$text-title;
   font-weight: 700;
   color: g.$cream;
   text-align: center;
@@ -177,8 +177,10 @@
 
   // The gold inset above is the hover cue; focus needs to read on its own
   // terms for anyone tabbing, so it also gets a ring outside the frame.
+  // The mat under these photos is Parchment, not the section's espresso, so
+  // the ring here follows the light field even though .gallery is dark.
   &:focus-visible {
-    outline: 2px solid g.$gold;
+    outline: 2px solid g.$ink;
     outline-offset: 2px;
     // Above the mat's stacking so the ring isn't clipped by a neighbour.
     z-index: 1;

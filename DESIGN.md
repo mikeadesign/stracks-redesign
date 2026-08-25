@@ -12,18 +12,18 @@ colors:
 typography:
   display:
     fontFamily: "Abril Fatface, Georgia, serif"
-    fontSize: "clamp(3.5rem, 10vw, 8rem)"
+    fontSize: "clamp(2.75rem, 17.5vw - 0.7rem, 6rem)"
     fontWeight: 400
     lineHeight: 0.95
     letterSpacing: "normal"
   headline:
-    fontFamily: "Libre Baskerville, Georgia, serif"
-    fontSize: "clamp(2rem, 4vw, 3rem)"
+    fontFamily: "Playfair Display, Georgia, serif"
+    fontSize: "clamp(1.875rem, 4vw, 3rem)"
     fontWeight: 400
     lineHeight: 1.1
   title:
-    fontFamily: "Libre Baskerville, Georgia, serif"
-    fontSize: "clamp(1rem, 2.5vw, 1.35rem)"
+    fontFamily: "Playfair Display, Georgia, serif"
+    fontSize: "clamp(1.25rem, 2vw, 1.5rem)"
     fontWeight: 400
     lineHeight: 1.5
   body:
@@ -31,11 +31,13 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.65
+    minimum: "1rem — running prose never goes below this"
   label:
     fontFamily: "Source Sans 3, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.7rem"
-    fontWeight: 600
-    letterSpacing: "0.2em"
+    fontSize: "0.8rem"
+    fontWeight: 700
+    letterSpacing: "0.16em"
+    minimum: "0.8rem — uppercase needs a higher floor than sentence case"
 rounded:
   sharp: "2px"
 spacing:
@@ -71,7 +73,7 @@ You walk by and you see it: the pole turning, warm amber through the glass, the 
 
 The palette runs on two fields: deep espresso dark and warm parchment light, alternating section by section to create rhythm without ornament. Against the dark, parchment text reads at extreme contrast — like a name painted on glass backlit from inside. Against the light, press-black type and antique gold accents carry the weight of a trade ledger: specific, unhurried, authoritative. The one accent of barber red appears rarely — on the phone CTA, today's hours, the apostrophe in the logo — never as a field color. Its rarity is its signal.
 
-The typography does the identity work that imagery would do elsewhere. Abril Fatface in the headline is the hand-painted shop sign. Libre Baskerville in subheadings is the editorial confidence of a shop that has nothing to prove. Source Sans 3 handles everything functional — labels, body text, pricing notes — with the neutral clarity of an invoice form. Together the three fonts give the system more personality than any image could. This system explicitly rejects: the slick uniformity of corporate salon chains (Great Clips, Sport Clips); the overwrought Instagram aesthetic of hipster barbershops; the generic warmth of WordPress local-business templates; and the SaaS-marketing language of gradient text, hero metrics, and scroll-triggered noise.
+The typography does the identity work that imagery would do elsewhere. Abril Fatface in the headline is the hand-painted shop sign. Playfair Display in subheadings is the editorial confidence of a shop that has nothing to prove. Source Sans 3 handles everything functional — labels, body text, pricing notes — with the neutral clarity of an invoice form. Together the three fonts give the system more personality than any image could. This system explicitly rejects: the slick uniformity of corporate salon chains (Great Clips, Sport Clips); the overwrought Instagram aesthetic of hipster barbershops; the generic warmth of WordPress local-business templates; and the SaaS-marketing language of gradient text, hero metrics, and scroll-triggered noise.
 
 **Key Characteristics:**
 - Two-field alternation (Espresso / Parchment) structures every page rhythm
@@ -109,36 +111,60 @@ Five tones, each with a distinct material character — not a family of shades, 
 ## 3. Typography
 
 **Display Font:** Abril Fatface (400) with Georgia, serif fallback
-**Heading Font:** Libre Baskerville (400, 700; normal, italic) with Georgia, serif fallback
+**Heading Font:** Playfair Display (400, 700; normal, italic) with Georgia, serif fallback
 **Body/Label Font:** Source Sans 3 (300, 400, 600, 700) with Helvetica Neue, Arial, sans-serif fallback
 
-**Character:** Abril Fatface's extreme weight and ink-trap letterforms evoke hand-painted shop signage — not elegant, not refined, authoritative by mass. Libre Baskerville brings editorial calm and Old World confidence to subheadings, with the italic cut reserved for taglines that need room to breathe. Source Sans 3 handles everything functional with the clean legibility of a trade form. The contrast between the display's graphic weight and the heading's classical line is intentional; the three fonts never compete because each occupies a distinct register.
+**Character:** Abril Fatface's extreme weight and ink-trap letterforms evoke hand-painted shop signage — not elegant, not refined, authoritative by mass. Playfair Display brings editorial calm and Old World confidence to subheadings, with the italic cut reserved for taglines that need room to breathe. Source Sans 3 handles everything functional with the clean legibility of a trade form. The contrast between the display's graphic weight and the heading's classical line is intentional; the three fonts never compete because each occupies a distinct register.
 
 ### Hierarchy
 
-- **Display** (Abril Fatface 400, `clamp(3.5rem, 10vw, 8rem)`, line-height 0.95): Hero headline only. The word "Strack's Barbershop" at full weight. Also used for service prices (1.5rem, antique gold) and wordmark logo (1.25rem, 1.5rem), where its condensed weight gives the brand name gravity without needing all-caps.
-- **Headline** (Libre Baskerville 400, `clamp(2rem, 4vw, 3rem)`, line-height 1.1): Section h2 headings on both light and dark backgrounds. Adapts color: Parchment on Espresso, Press Black on Parchment.
-- **Title** (Libre Baskerville 400 italic, `clamp(1rem, 2.5vw, 1.35rem)`, line-height 1.5): Supporting taglines and editorial prose that needs to be set apart from body text. Currently used as the hero tagline (at 75% Parchment opacity on dark). Not for inline emphasis.
-- **Body** (Source Sans 3 400, `1rem`, line-height 1.65): Main paragraph text. Press Black on Parchment. Max line length 50ch. Never use Worn Leather for body copy — contrast risk on Parchment.
-- **Label** (Source Sans 3 600–700, `0.7rem–0.85rem`, uppercase, `letter-spacing 0.12em–0.2em`): Eyebrows, nav links, CTA text, schedule day names, contact category headers. Small caps utility that signals structure without claiming heading hierarchy.
+All sizes resolve through the `$text-*` ramp in `app/_tokens.scss`. A bare
+number in a component is a bug — that is how the sizes drifted apart before.
+
+**The Legibility Floor.** PRODUCT.md puts the regulars at 50–70+, so the ramp
+starts higher than a default scale would and the bottom is a floor, not a
+hierarchy. Running prose never below `$text-body` (1rem). Supporting prose
+never below `$text-small` (0.9rem). Uppercase tracked labels never below
+`$text-label` (0.8rem) — all-caps strips the ascender/descender cues that carry
+small text, so it needs a *higher* floor than sentence case, not the lower one
+it usually gets. Nothing on the page renders below 12.8px.
+
+- **Display** (`$text-display`, Abril Fatface 400, `clamp(2.75rem, 17.5vw - 0.7rem, 6rem)`, line-height 0.95): Hero headline only. The slope is not chosen by eye — "Barbershop" is the longest unbreakable word on the site and the type tracks the width available to it, so the wordmark fills the measure like lettering on glass and never hyphenates. Abril also carries service prices (`$text-price`) and the wordmark (`$text-wordmark*`).
+- **Section** (`$text-section`, Playfair Display 700, `clamp(1.875rem, 4vw, 3rem)`, line-height 1.1): Full-width section h2s — About, Services, 404. Adapts color: Parchment on Espresso, Press Black on Parchment.
+- **Headline** (`$text-headline`, Playfair Display 700, `clamp(1.625rem, 3vw, 2.25rem)`): Paired h2s that share a row — Hours and Contact & Location.
+- **Title** (`$text-title`, `clamp(1.25rem, 2vw, 1.5rem)`): Plaque titles and the gallery caption heading.
+- **Lead** (`$text-lead`, 1.125rem): Lead prose, service names, contact values, CTA labels. The default for anything a visitor is actually trying to read off the page.
+- **Body** (`$text-body`, 1rem, line-height 1.65): Running paragraph text, the hours schedule, fact descriptions. Press Black on Parchment. Measure 45–75ch. Never use Worn Leather for body copy.
+- **Small** (`$text-small`, 0.9rem): Captions, notes, fine print, age qualifiers. Not a hierarchy step below body — a caption register at a legible size.
+- **Label** (`$text-label`, 0.8rem, uppercase, `letter-spacing 0.08em–0.16em`): Eyebrows, category headers, footer tagline. Tracking comes *down* as size goes up.
 
 ### Named Rules
 
 **The Display Rule.** Abril Fatface appears at ≥1.25rem only. The wordmark, service prices, and hero headline are the three contexts. Never use it as a body font or label font.
 
-**The Italic Reserve.** Libre Baskerville italic is for taglines and supporting prose — one instance of breathing room per section. Never use it for inline emphasis within body copy.
+**The Italic Reserve.** Playfair Display italic is for taglines and supporting prose — one instance of breathing room per section. Never use it for inline emphasis within body copy.
 
 **The Label Ceiling.** Labels (`letter-spacing: 0.2em`, uppercase) appear at most once per section, as a section locator — not on every heading. An eyebrow on every section is scaffolding, not voice. The system has one `.eyebrow` utility class; use it with the same restraint as Barber Red.
 
 ## 4. Elevation
 
-This system is flat. There are no box-shadows anywhere in the design. Depth is created by three means, in order of prevalence: (1) high-contrast background alternation between Espresso (#1C0F07) and Parchment (#F0E8D5), which produces approximately 11:1 contrast and makes the section boundary the depth signal; (2) hairline gold borders — `1px solid rgba(#C49A2A, 0.15–0.3)` — used to group items within a field without shadow; (3) the service menu grid's technique of a `1px` gold-tinted background bleeding through `1px` gaps between flat-colored cells, producing a hairline grid without any border property on the cells themselves.
+This system is flat. Nothing floats above anything else. Depth is created by three means, in order of prevalence: (1) high-contrast background alternation between Espresso (#1C0F07) and Parchment (#F0E8D5), which produces approximately 11:1 contrast and makes the section boundary the depth signal; (2) hairline gold borders — `1px solid rgba(#C49A2A, 0.15–0.3)` — used to group items within a field without shadow; (3) the service menu grid's technique of a `1px` gold-tinted background bleeding through `1px` gaps between flat-colored cells, producing a hairline grid without any border property on the cells themselves.
 
-The single exception is the fixed header, which uses `backdrop-filter: blur(6px)` at 96% opacity. This is functional — it prevents content scrolling under a fully transparent bar — not decorative. It is not replicated anywhere else.
+What is banned is **elevation** — the illusion that an element hovers over the page — not the `box-shadow` property. Those are not the same thing, and the distinction matters: a `filter: drop-shadow` can fake elevation just as well, while an inset shadow is the exact opposite of it. Judge the effect, not the declaration.
+
+Three effects are permitted, and only these three. Each is functional, each is load-bearing, and each is listed here so that adding a fourth is a conscious act rather than a drift.
+
+| Where | Effect | Why it is not elevation |
+| --- | --- | --- |
+| Fixed header | `backdrop-filter: blur(6px)` at 96% opacity | Stops content reading through a transparent bar. Nothing is lifted; the bar is a filter over what passes beneath it. |
+| Hero pole ribbon | `box-shadow: 0 1px 6px rgba(Espresso, 0.45)` | The only element in the system that sits on a photograph. This separates it from an unpredictable ground — the same job the hero's content scrim does for the type, at 8px scale. |
+| Hero CTA, `:active` | `box-shadow: inset 0 1px 3px rgba(Espresso, 0.3)` | Inset. The surface is being pressed *in*, not raised. Fires only during the click, and reads as tactility — correct for a shop whose identity is physical craft. |
+
+The 404's barber-stripe deliberately carries **no** shadow, though it is the same motif as the hero's. It sits on solid Espresso with nothing behind it to separate from, which makes the shadow decorative there. That contrast is the rule in miniature: the hero's ribbon earns it, the 404's does not.
 
 ### Named Rules
 
-**The Flat-First Rule.** Before adding any visual separation between elements, ask whether background alternation or a hairline border achieves the goal. If neither works, something is wrong with the structure, not the elevation. Box-shadows are prohibited.
+**The Flat-First Rule.** Before adding any visual separation between elements, ask whether background alternation or a hairline border achieves the goal. If neither works, something is wrong with the structure, not the elevation. **Elevation is prohibited** — no element may appear to float above the page, by any means. The three exceptions in the table above are exhaustive; anything else needs to earn its place there first, and the test it has to pass is "what is behind this, and why can't a border or a field change handle it?".
 
 **The Grid Gap Technique.** When tabular items need hairline separators, use `gap: 1px` on a container with a lightly gold-tinted background (`rgba(#C49A2A, 0.15)`), and set each cell's background to the section color. The gap bleeds through as the separator. This is cleaner than `border-bottom` on each row.
 
@@ -150,12 +176,12 @@ Fixed at top, 64px tall, Espresso field at 96% opacity with `backdrop-filter: bl
 
 - **Wordmark**: Abril Fatface 1.25rem, Parchment. Apostrophe in Barber Red — the only decorative use of Red in the system. The `'` is the shop's stamp.
 - **Nav links**: Source Sans 3, 0.8rem, 600 weight, uppercase, 0.12em tracking, Parchment at 75% opacity. Gold on hover. On active section (via IntersectionObserver): Gold color + gold underline revealed via `transform: scaleX(0→1)`, 0.25s ease.
-- **Phone CTA**: Barber Red button, Source Sans 3 700, 0.85rem, Parchment text, 2px radius, 0.4rem × 1rem padding. Darkens on hover. The only Barber Red button in the system; its placement in the header keeps it contextually separate from the gold primary CTAs below.
+- **Phone CTA**: Barber Red button, Source Sans 3 700, `$text-body`, Parchment text, 2px radius, 0.4rem × 1rem padding. Darkens on hover. The only Barber Red button in the system; its placement in the header keeps it contextually separate from the gold primary CTAs below.
 - **Responsive**: Nav links hide below 600px; phone CTA remains. The phone CTA is the entire mobile nav.
 
 ### CTA Buttons
 
-**Primary (gold):** Antique Gold fill, Espresso text, Source Sans 3 700, 1rem, uppercase, 0.06em tracking, 2px radius, 0.9rem × 2rem padding. Lightens 8% on hover; shifts up 1px (`transform: translateY(-1px)`). Used in Hero only.
+**Primary (gold):** Antique Gold fill, Espresso text, Source Sans 3 700, `$text-lead`, uppercase, 0.06em tracking, 2px radius, 0.9rem × 2rem padding. Lightens 8% on hover; shifts up 1px (`transform: translateY(-1px)`). Used in Hero only.
 
 **Secondary (red):** Barber Red fill, white text, same radius and type treatment but smaller padding (0.4rem × 1rem). Used in Header only. Never combined with a gold CTA in the same visual cluster.
 
@@ -165,7 +191,7 @@ Both buttons are unhurried — transitions at 0.2s, no elaborate states. The hov
 
 Service items laid out in `repeat(auto-fill, minmax(300px, 1fr))` on Espresso background. Hairline grid via `gap: 1px` on a `rgba(#C49A2A, 0.15)` container. Each cell: Espresso bg, 1.4rem × 1.75rem padding, flex row, service name left / price right.
 
-- **Service name**: Libre Baskerville 1rem, Parchment. Qualification note (age bracket) in Source Sans 3 0.75rem, Parchment at 45% opacity, below the name.
+- **Service name**: Playfair Display `$text-lead`, Parchment. Qualification note (age bracket) in Source Sans 3 `$text-small`, Parchment at 75% opacity, below the name — it names the senior rate, so it is the last thing on the page that should be set small.
 - **Price**: Abril Fatface 1.5rem, Antique Gold. The display font's weight makes prices feel authoritative, not promotional.
 - **Hover**: Cell background shifts to `rgba(#C49A2A, 0.06)` — a barely perceptible gold bloom.
 - **Footer note** (gift certificates): `1px solid rgba(#C49A2A, 0.2)` full border, flex row, gold label chip.

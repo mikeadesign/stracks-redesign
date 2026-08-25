@@ -22,7 +22,7 @@ html {
 
 body {
   font-family: var(--font-body), 'Helvetica Neue', Arial, sans-serif;
-  font-size: 1rem;
+  font-size: g.$text-body;
   line-height: 1.65;
   color: g.$ink;
   background-color: g.$cream;
@@ -43,18 +43,75 @@ img {
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: g.$text-label;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: g.$gold;
   margin-bottom: 0.5rem;
 }
 
+// ─── Skip link ───────────────────────────────────────────────────────────────
+// Parked off-screen with a transform rather than display:none or
+// visibility:hidden — either of those would take it out of the tab order and
+// leave it doing nothing at all, which is the usual way skip links get shipped
+// broken. It stays focusable at all times and rides in on focus.
+
+.skipLink {
+  position: fixed;
+  top: g.$space-sm;
+  left: g.$space-sm;
+  z-index: 200; // above the fixed header (100) — it has to land on top of it
+  font-family: var(--font-body);
+  font-size: g.$text-small;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: g.$brown-deep;
+  background: g.$gold;
+  padding: 0.9rem 1.5rem;
+  border-radius: 2px;
+  transform: translateY(calc(-100% - #{g.$space-sm}));
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+  // :focus, not :focus-visible — a skip link is only ever reached by keyboard
+  // or AT, and :focus-visible can decline to match when focus is moved
+  // programmatically.
+  &:focus {
+    transform: translateY(0);
+    // Same gold-fill case as the CTAs — the ring goes inside.
+    outline: 2px solid g.$brown-deep;
+    outline-offset: -6px;
+  }
+}
+
+// The skip target. Focusable only as a jump destination (tabindex="-1"), never
+// in the tab sequence, so it takes no ring of its own — the visitor asked to be
+// put here and doesn't need the whole page outlined to confirm it.
+main[tabindex] {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
+
 // ─── Focus & Accessibility ───────────────────────────────────────────────────
 
+// ─── Focus ring ──────────────────────────────────────────────────────────────
+// The Two-Field Rule governs the indicator exactly as it governs text: the ring
+// flips with the field it lands on. One fixed gold ring measured 2.15:1 on
+// Parchment and 2.62:1 on the white credentials panel — present, but under the
+// 3:1 floor and not reliably visible to the readers this site is built for.
+//
+// Default is the light field, since Parchment carries most of the page's
+// controls. Dark sections opt into gold locally.
+
+:root {
+  --focus-ring: #{g.$ink};
+}
+
 :focus-visible {
-  outline: 2px solid g.$gold;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 

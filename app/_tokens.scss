@@ -18,6 +18,54 @@ $font-body:     'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
 // don't drop the alpha below this without re-checking contrast.
 $cream-secondary: rgba($cream, 0.75);
 
+// ─── Type scale ──────────────────────────────────────────────────────────────
+// One ramp for text. Every font-size in the app resolves through these or the
+// Abril block below — a bare number in a component is how the sizes drifted
+// apart in the first place.
+//
+// The floors are set for THIS audience, not a generic reader. PRODUCT.md puts
+// the regulars at 50–70+, so the ramp starts higher than a default scale would:
+//
+//   • running prose never below $text-body
+//   • supporting prose never below $text-small
+//   • uppercase + tracked labels never below $text-label — all-caps strips the
+//     ascender/descender cues that carry small text, so it needs a HIGHER floor
+//     than sentence case, not the lower one it usually gets.
+//
+// Fluid steps only above $text-lead: below that the difference across viewports
+// is too small to be worth the unpredictability, and the floor is the point.
+
+// The bottom four steps are close together on purpose — they're a legibility
+// floor, not a hierarchy. Nothing in that band is trying to outrank anything
+// else; it's all "readable at arm's length". The real hierarchy starts at
+// $text-title and steps ~1.33–1.5 from there.
+$text-label:    0.8rem;    // 12.8px — uppercase, tracked. The hard floor.
+$text-small:    0.9rem;    // 14.4px — captions, notes, fine print
+$text-body:     1rem;      // 16px   — running prose
+$text-lead:     1.125rem;  // 18px   — lead prose, list items, CTA labels
+$text-title:    clamp(1.25rem, 2vw, 1.5rem);     // card/plaque titles, gallery
+$text-headline: clamp(1.625rem, 3vw, 2.25rem);   // paired h2s (Hours, Contact)
+$text-section:  clamp(1.875rem, 4vw, 3rem);      // full-width section h2s
+// Sized to fit, not picked by eye. "Barbershop" is the longest unbreakable
+// word on the page and it sets the constraint: at 52px it measures 284px, so
+// the type has to track (viewport − 64px of gutter) × 0.183 to stay on one
+// line. The slope below sits just under that with margin for the Georgia
+// fallback during font swap. Result: the wordmark fills the width like
+// lettering on glass at every size, and the &shy; in the markup stops being
+// load-bearing — it was firing on real phones and hyphenating the shop's name.
+$text-display:  clamp(2.75rem, 17.5vw - 0.7rem, 6rem);   // hero h1 only
+
+// Abril Fatface sizes. Separate from the ramp above because DESIGN.md's
+// Display Rule governs them — Abril appears at >=1.25rem, in three contexts
+// and no others. The wordmark is deliberately three sizes, not one: it has to
+// clear the 64px header bar, it's the bookend in the footer, and the 404 sits
+// between. Named so that stays a decision instead of three loose numbers.
+$text-wordmark:    1.25rem;  // header bar
+$text-wordmark-sm: 1.7rem;   // footer, below 380px
+$text-wordmark-md: 1.5rem;   // 404
+$text-wordmark-lg: 2rem;     // footer, mobile nav panel
+$text-price:       1.5rem;   // service prices
+
 $space-xs:  0.5rem;
 $space-sm:  1rem;
 $space-md:  2rem;
@@ -31,6 +79,18 @@ $bp-lg: 1024px;
 $header-height: 64px;
 
 // ─── Mixins (emit no CSS until @included — safe alongside the variables) ─────
+
+// Gold-filled buttons are the one case a field variable can't solve: an
+// outside ring is adjacent to the gold fill on its inner edge, and nothing
+// clears 3:1 against both gold and a dark ground. So the ring goes *inside*
+// the fill, where its only neighbour is gold — espresso on gold is 7.14:1.
+@mixin inset-focus-ring {
+  &:focus-visible {
+    outline: 2px solid $brown-deep;
+    outline-offset: -6px;
+  }
+}
+
 
 // The barber-pole stripe as a brand mark. One definition so the hero ribbon
 // and mobile-menu divider can't drift apart. Red/white/blue/white — the

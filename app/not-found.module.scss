@@ -1,6 +1,7 @@
 @use 'tokens' as g;
 
 .wrap {
+  --focus-ring: #{g.$gold}; // espresso field
   min-height: 100dvh;
   background-color: g.$brown-deep;
   color: g.$cream;
@@ -17,7 +18,7 @@
 
 .wordmark {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: g.$text-wordmark-md;
   letter-spacing: -0.01em;
   line-height: 1;
 }
@@ -32,12 +33,15 @@
   height: 8px;
   margin: g.$space-md auto;
   @include g.barber-stripe;
-  box-shadow: 0 1px 6px rgba(g.$brown-deep, 0.45);
+  // No shadow here, unlike the hero's ribbon. That one sits on a photograph
+  // and needs separating from it; this one sits on a solid espresso field with
+  // nothing behind it to separate from, which makes the shadow decorative —
+  // exactly what the Flat-First Rule exists to catch.
 }
 
 .headline {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-size: g.$text-section;
   font-weight: 400;
   line-height: 1.15;
   text-wrap: balance;
@@ -61,14 +65,15 @@
 
 .primary {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: g.$text-lead;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   background-color: g.$gold;
   color: g.$brown-deep;
   padding: 0.9rem 1.75rem; // ≥44px touch target
   border-radius: 2px;
+  @include g.inset-focus-ring;
   transition: background-color 0.2s;
 
   &:hover {
@@ -78,7 +83,7 @@
 
 .secondary {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: g.$text-body;
   color: g.$cream-secondary;
   padding: 0.75rem 0.5rem; // ≥44px touch target
   border-bottom: 1px solid rgba(g.$gold, 0.4);
@@ -99,9 +104,9 @@
 
   a {
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: g.$text-small;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: g.$cream-secondary;
     padding: 0.75rem 0.25rem; // ≥44px touch target

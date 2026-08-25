@@ -51,6 +51,12 @@ export default function Header() {
   useEffect(() => {
     if (!menuOpen) return;
 
+    // Captured now rather than read in the cleanup. The node never changes —
+    // the hamburger renders unconditionally and is only display:none above
+    // $bp-sm — so this is equivalent, and it keeps react-hooks/exhaustive-deps
+    // from flagging a ref read in a cleanup that runs later.
+    const menuButton = menuButtonRef.current;
+
     document.body.style.overflow = 'hidden';
 
     const behind = document.querySelectorAll('main, footer');
@@ -70,7 +76,7 @@ export default function Header() {
       document.body.style.overflow = '';
       behind.forEach((el) => el.removeAttribute('inert'));
       window.removeEventListener('keydown', onKey);
-      menuButtonRef.current?.focus();
+      menuButton?.focus();
     };
   }, [menuOpen]);
 
@@ -80,7 +86,7 @@ export default function Header() {
         <Link href="/" className={styles.logo}>
           Strack<span>&rsquo;</span>s<span className={styles.logoWord}> Barbershop</span>
         </Link>
-        <nav className={styles.nav} aria-label="Main navigation">
+        <nav className={styles.nav} aria-label="Primary">
           {NAV_LINKS.map(({ href, label, id }) => (
             <a
               key={id}
@@ -111,7 +117,7 @@ export default function Header() {
       <nav
         id="mobile-menu"
         className={`${styles.panel} ${menuOpen ? styles.panelOpen : ''}`}
-        aria-label="Section navigation"
+        aria-label="Site sections"
         aria-hidden={!menuOpen}
       >
         {MENU_LINKS.map(({ href, label, id }, i) => (
