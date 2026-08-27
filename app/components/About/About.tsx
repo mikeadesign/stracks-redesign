@@ -27,10 +27,10 @@ export default function About() {
             </h2>
             <p>
               Strack&rsquo;s has been the go-to barbershop in Algonquin for years —
-              original leather chairs, walls full of memorabilia, and a barber who
-              takes the time to get to know you. Whether you want a classic
-              pompadour, a clean fade, or a straight-razor beard trim, you leave
-              looking sharp.
+              antique leather chairs in daily use, walls full of memorabilia, and
+              a barber who takes the time to get to know you. Whether you want a
+              classic pompadour, a clean fade, or a straight-razor beard trim, you
+              leave looking sharp.
             </p>
             <p>
               No apps. No subscriptions. No nonsense. Just a proper haircut

@@ -18,7 +18,7 @@ Business constraints: cash only (no payment flows), no online booking (pen-and-p
 
 Rugged · Timeless · No-nonsense
 
-Old-school retro barbershop — the kind that's been there for decades and earns its reputation one cut at a time. Awards on the wall. Original leather chairs. A barber who listens. Pride in craft, not in trend.
+Old-school retro barbershop — the kind that's been there for decades and earns its reputation one cut at a time. Awards on the wall. Antique leather chairs, still in daily use. A barber who listens. Pride in craft, not in trend.
 
 Voice is direct, confident, and unhurried. Never precious, never ironic, never corporate. The copy already nails this; the visual system should match it.
 
