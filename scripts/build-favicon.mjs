@@ -2,7 +2,8 @@ import sharp from 'sharp';
 import path from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-// Rebuilds app/favicon.ico from scripts/favicon-source.svg. Run whenever the
+// Rebuilds app/favicon.ico from scripts/favicon-source.svg, and
+// app/apple-icon.png from scripts/apple-icon-source.svg. Run whenever either
 // source art changes; nothing else consumes this at build time.
 //
 // Embeds PNG-compressed frames in a hand-assembled ICONDIR rather than
@@ -12,6 +13,13 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const SVG_PATH = path.join(ROOT, 'scripts/favicon-source.svg');
 const OUT_PATH = path.join(ROOT, 'app/favicon.ico');
 const SIZES = [16, 32, 48];
+
+const APPLE_SVG_PATH = path.join(ROOT, 'scripts/apple-icon-source.svg');
+const APPLE_OUT_PATH = path.join(ROOT, 'app/apple-icon.png');
+// 180x180 is Apple's current largest-used size (iPhone Retina @3x home
+// screen); Next.js reads the file's own dimensions for the sizes attribute
+// on the generated <link>, so this doesn't need to match SIZES above.
+const APPLE_SIZE = 180;
 
 const svg = readFileSync(SVG_PATH);
 
@@ -48,3 +56,13 @@ for (let i = 0; i < SIZES.length; i++) {
 
 writeFileSync(OUT_PATH, Buffer.concat([header, ...entries, ...pngs]));
 console.log(`wrote ${path.relative(ROOT, OUT_PATH)}: ${SIZES.join('/')}px`);
+
+const appleSvg = readFileSync(APPLE_SVG_PATH);
+const applePng = await sharp(appleSvg, { density: 384 })
+  .resize(APPLE_SIZE, APPLE_SIZE)
+  .flatten({ background: '#1C0F07' }) // belt-and-suspenders: no alpha channel reaches iOS
+  .png()
+  .toBuffer();
+
+writeFileSync(APPLE_OUT_PATH, applePng);
+console.log(`wrote ${path.relative(ROOT, APPLE_OUT_PATH)}: ${APPLE_SIZE}px`);
