@@ -1,0 +1,32 @@
+<!--
+  Source art for app/apple-icon.png — edit this, then run `npm run build-favicon`.
+
+  Same diagonal red/cream/blue candy stripe as favicon-source.svg (see that
+  file for the pattern math), but full-bleed with no corner rounding and no
+  transparency. iOS applies its own squircle mask and fills transparent
+  pixels with black, so pre-rounding here would either double up with
+  Apple's mask or show a black ring around the icon — a plain opaque square
+  is what every apple-touch-icon guide recommends.
+
+  translate(7.5,0): favicon-source.svg's translate(14,0) was phased for that
+  file's rounded-corner clip, not a plain square — reused here it puts more
+  red at the top-left corner than the bottom-right. This square has no clip,
+  so the two corners the diagonal cuts (top-left, bottom-right) should mirror
+  exactly under the square's own 180° rotation. 7.5 centers the square on the
+  middle of a solid band (red or blue) rather than a boundary, which is what
+  makes the two opposite corners come out as equal-area triangles of the same
+  color. Found by rendering every offset from 0-24 and scoring corner-pixel
+  symmetry, not derived on paper — same approach as the favicon's offset.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <pattern id="stripes" width="24" height="24" patternTransform="rotate(45) translate(7.5,0)" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#BE1E2D"/>
+      <rect x="6" width="6" height="24" fill="#F0E8D5"/>
+      <rect x="12" width="6" height="24" fill="#34558B"/>
+      <rect x="18" width="6" height="24" fill="#F0E8D5"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="32" height="32" fill="#1C0F07"/>
+  <rect x="0" y="0" width="32" height="32" fill="url(#stripes)"/>
+</svg>

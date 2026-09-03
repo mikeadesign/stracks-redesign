@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Abril_Fatface, Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import HashScroll from './components/HashScroll/HashScroll';
@@ -33,6 +33,13 @@ const sourceSans3 = Source_Sans_3({
   variable: '--font-body',
   display: 'swap',
 });
+
+// Matches $brown-deep — the hero/footer background — so the iOS status bar
+// and Android task-switcher chrome read as part of the shop's shell rather
+// than default browser gray when the site's pinned or opened full-screen.
+export const viewport: Viewport = {
+  themeColor: '#1C0F07',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.stracksbarbershop.com'),
