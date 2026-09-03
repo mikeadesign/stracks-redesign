@@ -32,11 +32,27 @@
   max-width: 1100px;
   margin-inline: auto;
   padding-top: g.$space-lg;
-  padding-bottom: g.$space-md;
   font-family: var(--font-heading);
   font-size: g.$text-title;
   font-weight: 700;
   color: g.$cream;
+  text-align: center;
+}
+
+// Same plaque-caption treatment as About's award subtitle — italic serif
+// rather than a tracked-uppercase eyebrow, so it reads as an aside under the
+// heading instead of a second label competing with it.
+.subheading {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-top: 0.4rem;
+  padding-bottom: g.$space-md;
+  font-family: var(--font-heading);
+  font-size: g.$text-small;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: g.$cream-secondary;
   text-align: center;
 }
 
