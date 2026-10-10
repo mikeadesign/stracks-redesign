@@ -1,0 +1,50 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # No GITHUB_PAGES flag here: production serves from the domain root,
+      # so basePath stays empty (see next.config.ts).
+      - name: Build
+        run: npm run build
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ./public_html/
+          exclude: |
+            # GitHub Pages leftover; meaningless on Apache.
+            **/.nojekyll
+            # .htaccess is deliberately NOT excluded (unlike mikeavello.com):
+            # public/.htaccess carries the redirects, caching rules and the
+            # cPanel PHP handler block, and is meant to replace the server's.
