@@ -44,7 +44,7 @@ export const photos: GalleryPhoto[] = [
   },
   {
     src: `${BASE_PATH}/images/home/5.webp`,
-    alt: 'A straight razor resting on its strop, part of the antiques lining the shop',
+    alt: 'A straight razor resting on its box, part of the antiques lining the shop',
     width: 618,
     height: 412,
   },
