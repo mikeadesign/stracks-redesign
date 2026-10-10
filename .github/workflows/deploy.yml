@@ -31,11 +31,33 @@ jobs:
             tr -d '\r' < "$1" | sed -n '/php -- BEGIN cPanel-generated handler/,/php -- END cPanel-generated handler/p'
           }
 
-          if ! curl --silent --show-error --fail --ssl-reqd \
-              --user "$FTP_USERNAME:$FTP_PASSWORD" \
-              "ftp://$FTP_SERVER/public_html/.htaccess" -o live.htaccess; then
-            echo "::warning::Could not fetch the live .htaccess (missing, or FTP unreachable); skipping host-drift check."
+          # The host's FTPS certificate is a wildcard for *.webhostbox.net, so
+          # it never matches FTP_SERVER (ftp.stracksbarbershop.com). Connect to
+          # FTP_SERVER's real address but verify the certificate against a
+          # name the wildcard covers, so TLS verification stays on.
+          CERT_NAME=ftp.webhostbox.net
+          ip=$(getent hosts "$FTP_SERVER" | awk '{print $1; exit}')
+          if [ -z "$ip" ]; then
+            echo "::error::Could not resolve FTP_SERVER; refusing to deploy without the host-drift check."
+            exit 1
+          fi
+
+          set +e
+          curl --silent --show-error --fail --ssl-reqd \
+            --resolve "$CERT_NAME:21:$ip" \
+            --user "$FTP_USERNAME:$FTP_PASSWORD" \
+            "ftp://$CERT_NAME/public_html/.htaccess" -o live.htaccess
+          rc=$?
+          set -e
+
+          # 78 = remote file not found: nothing on the host to protect yet.
+          # Any other failure stops the deploy rather than skipping the check.
+          if [ "$rc" -eq 78 ]; then
+            echo "::warning::No live .htaccess on the host; skipping host-drift check."
             exit 0
+          elif [ "$rc" -ne 0 ]; then
+            echo "::error::Could not fetch the live .htaccess (curl exit $rc); refusing to deploy without the host-drift check."
+            exit 1
           fi
 
           block live.htaccess > live.block
