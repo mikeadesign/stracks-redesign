@@ -1,0 +1,86 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # public/.htaccess replaces the host's copy on deploy. cPanel rewrites
+      # its PHP handler block on its own (e.g. a MultiPHP Manager change), so
+      # compare that block against the live file first and stop rather than
+      # revert it. Everything outside the block is repo-owned; any difference
+      # there is only surfaced as a warning.
+      - name: Check live .htaccess for host-side changes
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          block() {
+            tr -d '\r' < "$1" | sed -n '/php -- BEGIN cPanel-generated handler/,/php -- END cPanel-generated handler/p'
+          }
+
+          if ! curl --silent --show-error --fail --ssl-reqd \
+              --user "$FTP_USERNAME:$FTP_PASSWORD" \
+              "ftp://$FTP_SERVER/public_html/.htaccess" -o live.htaccess; then
+            echo "::warning::Could not fetch the live .htaccess (missing, or FTP unreachable); skipping host-drift check."
+            exit 0
+          fi
+
+          block live.htaccess > live.block
+          block public/.htaccess > repo.block
+
+          if [ ! -s live.block ]; then
+            echo "::warning::Live .htaccess has no cPanel handler block; deploy will add the repo's."
+          elif ! diff -u live.block repo.block; then
+            echo "::error::The cPanel PHP handler block on the host differs from public/.htaccess (diff above, - is live, + is repo). Copy the live block into public/.htaccess, commit, and re-run."
+            exit 1
+          fi
+
+          if ! diff -q <(tr -d '\r' < live.htaccess) <(tr -d '\r' < public/.htaccess) > /dev/null; then
+            echo "::warning::Live .htaccess differs from the repo outside the cPanel block; this deploy will overwrite it."
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # No GITHUB_PAGES flag here: production serves from the domain root,
+      # so basePath stays empty (see next.config.ts).
+      - name: Build
+        run: npm run build
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ./public_html/
+          exclude: |
+            # GitHub Pages leftover; meaningless on Apache.
+            **/.nojekyll
+            # .htaccess is deliberately NOT excluded (unlike mikeavello.com):
+            # public/.htaccess carries the redirects, caching rules and the
+            # cPanel PHP handler block, and is meant to replace the server's.
